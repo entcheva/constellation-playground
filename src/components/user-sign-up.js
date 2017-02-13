@@ -20,10 +20,18 @@ class UserSignUp extends Component {
     return(
       <div>
         <form onSubmit={this.handleSubmit}>
+          <label>Username: </label>
           <input ref="username" placeholder="Enter Username" />
+          <br/><br/>
+          <label>Email: </label>
           <input ref="email" placeholder="Enter Email" />
+          <br/><br/>
+          <label>Password: </label>
           <input type="password" ref="password" placeholder="Enter Password"/>
+          <br/><br/>
+          <label>Password Verification: </label>
           <input type="password" ref="passwordConfirmation" placeholder="Verify Password"/>
+          <br/><br/>
           <button type="submit">Sign Up</button>
         </form>
       </div>
