@@ -1,0 +1,8 @@
+import React from 'react'
+import ReactDOM from 'react-dom'
+import { createStore, applyMiddleware } from 'redux'
+import { Route, browserHistory } from 'react-router'
+import { Provider } from 'react-redux'
+import ReduxPromise from 'redux-promise'
+import routes from './routes'
+import rootReducer from './reducers/root-reducer'
