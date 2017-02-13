@@ -1,6 +1,6 @@
 export default (state=[], action) => {
   switch (action.type) {
-    case 'CREATE_USER':
+    case 'SIGN_UP':
       return action.payload.data.email
     default:
       return state

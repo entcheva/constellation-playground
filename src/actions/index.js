@@ -9,13 +9,13 @@ const URL = "http://localhost:3000/api/v1/"
 export const createUser = (user) => {
   const response = axios.post(URL + 'signup', user).then((userData) => {
     sessionStorage.setItem('jwt', userData.data.jwt)
-    browserHistory.push("/thisisonlytemporarychangethisasap")
+    browserHistory.push(`/user/${user.username}`)
     return userData
   })
 
 
   return {
-    type: 'CREATE_USER',
+    type: 'SIGN_UP',
     payload: response
   }
 }
