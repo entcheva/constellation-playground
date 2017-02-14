@@ -4,7 +4,11 @@ import usersReducer from './users-reducer'
 
 
 const rootReducer = combineReducers({
-  users: usersReducer
+  user: usersReducer
+
+  // usersReducer === {username: "stardude"}
+
+  // This sets the global state to => {user: {username: "stardude"}}
 })
 
 
