@@ -8,8 +8,8 @@ import ReduxPromise from 'redux-promise'
 import routes from './routes'
 import rootReducer from './reducers'
 
-const composeEnhancers = window.__REDUX_DEVTOOLS_EXTENSION_COMPOSE__ || compose
-const store = createStore(composeEnhancers(applyMiddleware(ReduxPromise)))
+const composeEnhancers = window.__REDUX_DEVTOOLS_EXTENSION_COMPOSE__ || compose  // only to enable Redux dev tools
+const store = createStore(rootReducer, composeEnhancers(applyMiddleware(ReduxPromise)))  // creating store with rootReducer
 
 ReactDOM.render(
   <Provider store={store}>
