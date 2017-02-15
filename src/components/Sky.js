@@ -1,8 +1,9 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux'
 import { bindActionCreators } from 'redux'
-import { logOutUser, fetchUsername, fetchStars } from '../actions/index'
+import { logOutUser, fetchUsername, fetchStars } from '../actions'
 import Star from './Star'
+import Constellation from './Constellation'
 
 
 class Sky extends Component {
@@ -30,6 +31,9 @@ class Sky extends Component {
             <Star id={star.id} x={star.x} y={star.y} z={star.z} key={i} />
 
           ) }
+        </div>
+        <div>
+          <Constellation />
         </div>
         <button onClick={this.handleLogOutClick.bind(this)}>Log Out</button>
       </div>

@@ -1,6 +1,10 @@
 import React, { Component } from 'react'
+import { connect } from 'react-redux'
+import { bindActionCreators } from 'redux'
+import { addToConstellation, removeFromConstellation } from '../actions'
 
-export default class Star extends Component {
+
+class Star extends Component {
 
   constructor(){
     super()
@@ -19,22 +23,14 @@ export default class Star extends Component {
         selected: true,
         timestamp: Date.now()
       })
-      this.addToConstellation()
+      this.props.addToConstellation(this.props)
     } else {
       this.setState({
         selected: false,
         timestamp: null
       })
-      this.removeFromConstellation()
+      this.props.removeFromConstellation(this.props)
     }
-  }
-
-  addToConstellation(){
-    // Push to Redux Constellation state
-  }
-
-  removeFromConstellation(){
-    // Remove from Redux Constellation state
   }
 
   render() {
@@ -48,3 +44,16 @@ export default class Star extends Component {
   }
 
 }
+
+
+const mapDispatchToProps = (dispatch) => {
+  return bindActionCreators({addToConstellation, removeFromConstellation}, dispatch)
+}
+
+// function mapStateToProps (state){
+//   return {
+//
+//   }
+// }
+
+export default connect(null, mapDispatchToProps)(Star)

@@ -57,3 +57,18 @@ export const fetchStars = () => {
     payload: response
   }
 }
+
+export const addToConstellation = (star) => {
+  // constellationArray.push(star)
+  return {
+    type: 'ADD_TO_CONSTELLATION',
+    payload: star
+  }
+}
+
+export const removeFromConstellation = (star) => {
+  return {
+    type: 'REMOVE_FROM_CONSTELLATION',
+    payload: star
+  }
+}
