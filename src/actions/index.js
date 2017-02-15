@@ -12,7 +12,7 @@ export const createUser = (user) => {
     // userData includes jwt token and other Rails info
     sessionStorage.setItem('jwt', userData.data.jwt) // send jwt token to session storage
     browserHistory.push("/") // alters the URL in browser
-    return user.username // sets the response to equal username
+    return userData // sets the response to equal username
   })
   return {
     type: 'LOG_IN',
@@ -25,7 +25,7 @@ export const logInUser = (user) => {
   const response = axios.post('/login', user).then( (userData) => {
     sessionStorage.setItem('jwt', userData.data.jwt)
     browserHistory.push("/")
-    return user.username
+    return userData
   })
   return {
     type: 'LOG_IN',
@@ -38,5 +38,14 @@ export const logOutUser = () => {
   browserHistory.push("/signup")
   return {
     type: 'LOG_OUT'
+  }
+}
+
+export const fetchUsername = () => {
+  axios.defaults.headers.common['AUTHORIZATION'] = sessionStorage.getItem('jwt')
+  const response = axios.get('/active')
+  return {
+    type: 'FETCH_USERNAME',
+    payload: response
   }
 }
