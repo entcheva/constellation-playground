@@ -13,7 +13,7 @@ export const createUser = (user) => {
     return user.username // sets the response to equal username
   })
   return {
-    type: 'SIGN_UP',
+    type: 'LOG_IN',
     payload: response // sending username as payload to the reducer
   }
 }
