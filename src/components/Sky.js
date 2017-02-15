@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux'
 import { bindActionCreators } from 'redux'
-import { logOutUser } from '../actions/index'
+import { logOutUser, fetchUsername } from '../actions/index'
 
 
 class Sky extends Component {
@@ -11,13 +11,16 @@ class Sky extends Component {
     this.props.logOutUser()
   }
 
+  componentDidMount(){
+    this.props.fetchUsername()
+  }
+
   render() {
     return (
       <div className="Sky">
         <p>You are on the sky page.</p>
         <h1>
           Welcome {this.props.username}
-          {/* fetch current_user from API */}
         </h1>
         <button onClick={this.handleClick.bind(this)}>Log Out</button>
       </div>
@@ -26,7 +29,7 @@ class Sky extends Component {
 }
 
 const mapDispatchToProps = (dispatch) => {
-  return bindActionCreators({logOutUser}, dispatch)
+  return bindActionCreators({logOutUser, fetchUsername}, dispatch)
 }
 
 function mapStateToProps (state){
