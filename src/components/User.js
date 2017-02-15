@@ -3,7 +3,7 @@ import { bindActionCreators } from 'redux'
 import { connect } from 'react-redux'
 import { createUser, logInUser } from '../actions/index'
 
-class UserSignUp extends Component {
+class User extends Component {
 
   constructor() {
     super()
@@ -71,4 +71,4 @@ const mapDispatchToProps = (dispatch) => {
   return bindActionCreators({createUser, logInUser}, dispatch)
 }
 
-export default connect(null, mapDispatchToProps) (UserSignUp)
+export default connect(null, mapDispatchToProps) (User)
