@@ -19,7 +19,7 @@ class Sky extends Component {
           Welcome {this.props.username}
           {/* fetch current_user from API */}
         </h1>
-        <button onClick={this.handleClick}>Log Out</button>
+        <button onClick={this.handleClick.bind(this)}>Log Out</button>
       </div>
     );
   }
