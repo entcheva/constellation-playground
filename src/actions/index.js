@@ -25,7 +25,6 @@ export const logInUser = (user) => {
   const response = axios.post('/login', user).then( (userData) => {
     sessionStorage.setItem('jwt', userData.data.jwt)
     browserHistory.push("/")
-    debugger
     return user.username
   })
   return {
