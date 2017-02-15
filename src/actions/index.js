@@ -49,3 +49,11 @@ export const fetchUsername = () => {
     payload: response
   }
 }
+
+export const fetchStars = () => {
+  const response = axios.get('/stars')
+  return {
+    type: 'FETCH_STARS',
+    payload: response
+  }
+}
