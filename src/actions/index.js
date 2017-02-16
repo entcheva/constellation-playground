@@ -101,5 +101,5 @@ export const addNewConstellation = (array) => {
     payload: {
       name: 'New constellation',
       stars_array: starsArray}
-  }
+    }
 }

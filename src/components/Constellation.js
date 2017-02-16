@@ -7,7 +7,7 @@ class Constellation extends Component {
     const constellation = this.props.constellation.map((star) => star.id).join().replace(/,/g , ' ')
     return (
       <div>
-        <h2>Constellation:</h2>
+        <h2>Creating constellation...</h2>
         <h1>{ constellation }</h1>
       </div>
     )

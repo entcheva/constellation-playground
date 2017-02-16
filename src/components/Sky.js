@@ -39,7 +39,7 @@ class Sky extends Component {
         </div>
         <br />
         <div>
-          <h2>My Constellations</h2>
+          <h2>My Constellations:</h2>
             { this.props.myConstellations.map( (constellation, i) =>
               <h3 key={i}>{constellation.name} {constellation.stars_array}</h3>
             )}

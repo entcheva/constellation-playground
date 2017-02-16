@@ -17,6 +17,7 @@ class Star extends Component {
   handleStarClick(event) {
     console.log(Date.now())
     console.log(this.props.id)
+    
     const constellation = this.props.constellation.map((star) => star.id).join().replace(/,/g , ' ')
     if (constellation.includes(this.props.id)) {
       this.props.removeFromConstellation(this.props)
