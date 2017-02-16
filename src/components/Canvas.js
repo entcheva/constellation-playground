@@ -3,11 +3,13 @@ import React, { Component } from 'react'
 export default class Canvas extends Component {
 
   componentDidMount() {
+
+    // make canvas
     const canvas = this.refs.starfield
     const context = canvas.getContext('2d')
+
+    // tiny star background
     const stars = 200
-    // context.fillRect(10, 10, 10, 10)
-    // context.fillStyle = "black"
     for (let i = 0; i < stars; i++) {
       let x = Math.random() * canvas.offsetWidth
       let y = Math.random() * canvas.offsetHeight
@@ -18,9 +20,11 @@ export default class Canvas extends Component {
       context.fill()
     }
 
-  }
+    context.arc(250, 250, 10, 0, 360)
+    context.fillStyle = "white"
+    context.fill()
 
-
+  } // end componentDidMount
 
 
 
