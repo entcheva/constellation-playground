@@ -82,7 +82,7 @@ export const saveConstellation = (array) => {
       axios.post('/constellations', data)
     })
   return {
-    type: 'SAVE_CONSTELLATION',
+    type: 'SAVE_CONSTELLATION'
   }
 }
 
@@ -91,5 +91,15 @@ export const fetchMyConstellations = () => {
   return {
     type: 'FETCH_MY_CONSTELLATIONS',
     payload: response
+  }
+}
+
+export const addNewConstellation = (array) => {
+  const starsArray = array.map( (star) => star.id )
+  return {
+    type: 'ADD_NEW_CONSTELLATION',
+    payload: {
+      name: 'New constellation',
+      stars_array: starsArray}
   }
 }

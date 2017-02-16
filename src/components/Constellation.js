@@ -4,12 +4,11 @@ import { connect } from 'react-redux'
 class Constellation extends Component {
 
   render() {
+    const constellation = this.props.constellation.map((star) => star.id).join().replace(/,/g , ' ')
     return (
       <div>
         <h2>Constellation:</h2>
-          { this.props.constellation.map((star, i) =>
-            <h4 key={i}>Star #{star.id}</h4>
-          ) }
+        <h1>{ constellation }</h1>
       </div>
     )
   }

@@ -5,31 +5,38 @@ import { addToConstellation, removeFromConstellation } from '../actions'
 
 class Star extends Component {
 
-  constructor(){
-    super()
-
-    this.state = {
-      selected: false,
-      // timestamp: null
-    }
-  }
+  // constructor(){
+  //   super()
+  //
+  //   this.state = {
+  //     selected: false,
+  //     // timestamp: null
+  //   }
+  // }
 
   handleStarClick(event) {
     console.log(Date.now())
     console.log(this.props.id)
-    if (this.state.selected === false){
-      this.setState({
-        selected: true,
-        // timestamp: Date.now()
-      })
-      this.props.addToConstellation(this.props)
-    } else {
-      this.setState({
-        selected: false,
-        // timestamp: null
-      })
+    const constellation = this.props.constellation.map((star) => star.id).join().replace(/,/g , ' ')
+    if (constellation.includes(this.props.id)) {
       this.props.removeFromConstellation(this.props)
+    } else {
+      this.props.addToConstellation(this.props)
     }
+
+    // if (this.state.selected === false){
+    //   this.setState({
+    //     selected: true,
+    //     // timestamp: Date.now()
+    //   })
+    //   this.props.addToConstellation(this.props)
+    // } else {
+    //   this.setState({
+    //     selected: false,
+    //     // timestamp: null
+    //   })
+    //   this.props.removeFromConstellation(this.props)
+    // }
   }
 
   render() {
@@ -48,4 +55,10 @@ const mapDispatchToProps = (dispatch) => {
   return bindActionCreators({addToConstellation, removeFromConstellation}, dispatch)
 }
 
-export default connect(null, mapDispatchToProps)(Star)
+const mapStateToProps = (state) => {
+  return {
+    constellation: state.constellation
+  }
+}
+
+export default connect(mapStateToProps, mapDispatchToProps)(Star)
