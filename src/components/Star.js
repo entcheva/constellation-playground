@@ -11,7 +11,7 @@ class Star extends Component {
 
     this.state = {
       selected: false,
-      timestamp: null
+      // timestamp: null
     }
   }
 
@@ -21,13 +21,13 @@ class Star extends Component {
     if (this.state.selected === false){
       this.setState({
         selected: true,
-        timestamp: Date.now()
+        // timestamp: Date.now()
       })
       this.props.addToConstellation(this.props)
     } else {
       this.setState({
         selected: false,
-        timestamp: null
+        // timestamp: null
       })
       this.props.removeFromConstellation(this.props)
     }

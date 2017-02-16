@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux'
 import { bindActionCreators } from 'redux'
-import { logOutUser, fetchUsername, fetchStars } from '../actions'
+import { logOutUser, fetchUsername, fetchStars, saveConstellation } from '../actions'
 import Star from './Star'
 import Constellation from './Constellation'
 
@@ -11,6 +11,11 @@ class Sky extends Component {
   handleLogOutClick() {
     // bring us to that Log Out action
     this.props.logOutUser()
+  }
+
+  handleSaveClick() {
+    const array = this.props.constellation
+    this.props.saveConstellation(array)
   }
 
   componentDidMount(){
@@ -35,6 +40,7 @@ class Sky extends Component {
         <div>
           <Constellation />
         </div>
+        <button onClick={this.handleSaveClick.bind(this)}>Save Constellation</button>
         <button onClick={this.handleLogOutClick.bind(this)}>Log Out</button>
       </div>
     )
@@ -42,13 +48,14 @@ class Sky extends Component {
 }
 
 const mapDispatchToProps = (dispatch) => {
-  return bindActionCreators({logOutUser, fetchUsername, fetchStars}, dispatch)
+  return bindActionCreators({logOutUser, fetchUsername, fetchStars, saveConstellation}, dispatch)
 }
 
 function mapStateToProps (state){
   return {
     username: state.user.username,
-    stars: state.stars
+    stars: state.stars,
+    constellation: state.constellation
     // selectedStars: state.selectedStars
     // The global state is {user: {username: 'stardude'}}
   }

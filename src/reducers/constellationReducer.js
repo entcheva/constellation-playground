@@ -4,6 +4,8 @@ export default (state=[], action) => {
       return [...state, action.payload]
     case 'REMOVE_FROM_CONSTELLATION':
       return state.filter((star) => star.id !== action.payload.id)
+    case 'SAVE_CONSTELLATION':
+      return state
     default:
       return state
   }

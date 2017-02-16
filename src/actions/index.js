@@ -7,13 +7,14 @@ axios.defaults.headers.common['AUTHORIZATION'] = sessionStorage.getItem('jwt')
 
 export const createUser = (user) => {
   // call on Rails API to hit the Create action
-  const response = axios.post('/signup', user).then( (userData) => {
+  const response = axios.post('/signup', user)
+    .then( (userData) => {
     // user is object with form data
     // userData includes jwt token and other Rails info
-    sessionStorage.setItem('jwt', userData.data.jwt) // send jwt token to session storage
-    browserHistory.push("/") // alters the URL in browser
-    return userData // sets the response to equal username
-  })
+      sessionStorage.setItem('jwt', userData.data.jwt) // send jwt token to session storage
+      browserHistory.push("/") // alters the URL in browser
+      return userData // sets the response to equal username
+    })
   return {
     type: 'LOG_IN',
     payload: response // sending username as payload to the reducer
@@ -22,11 +23,12 @@ export const createUser = (user) => {
 
 export const logInUser = (user) => {
   // call on Rails API to match and decode token
-  const response = axios.post('/login', user).then( (userData) => {
-    sessionStorage.setItem('jwt', userData.data.jwt)
-    browserHistory.push("/")
-    return userData
-  })
+  const response = axios.post('/login', user)
+    .then( (userData) => {
+      sessionStorage.setItem('jwt', userData.data.jwt)
+      browserHistory.push("/")
+      return userData
+    })
   return {
     type: 'LOG_IN',
     payload: response
@@ -70,5 +72,22 @@ export const removeFromConstellation = (star) => {
   return {
     type: 'REMOVE_FROM_CONSTELLATION',
     payload: star
+  }
+}
+
+export const saveConstellation = (array) => {
+  axios.defaults.headers.common['AUTHORIZATION'] = sessionStorage.getItem('jwt')
+  const starIDArray = array.map( star => star.id )
+  const userData = axios.get('/active_id')
+    .then( (userData) => {
+      const userID = userData.data.user_id
+      const data = {
+        stars_array: starIDArray,
+        user_id: userID
+      }
+      axios.post('/constellations', data)
+    })
+  return {
+    type: 'SAVE_CONSTELLATION'
   }
 }
