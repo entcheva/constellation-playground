@@ -18,11 +18,32 @@ export default class Canvas extends Component {
       context.arc(x, y, radius, 0, 360)
       context.fillStyle = "hsla(200, 100%, 50%, 0.8)"
       context.fill()
+      context.closePath()
     }
 
-    context.arc(250, 250, 10, 0, 360)
-    context.fillStyle = "white"
-    context.fill()
+    // make star object plz
+
+    const starObjects = 20
+
+    for (let i = 0; i < starObjects; i++) {
+
+      let x = Math.random() * canvas.offsetWidth
+      let y = Math.random() * canvas.offsetHeight
+      context.beginPath()
+      context.arc(x, y, 5, 0, 360)
+      context.fillStyle = "white"
+      context.shadowColor = 'white';
+      context.shadowBlur = 20;
+      context.shadowOffsetX = 0;
+      context.shadowOffsetY = 0;
+      // context.strokeStyle = '#00ff00';
+      // context.lineWidth = 5;
+      context.stroke();
+      context.fill()
+      context.closePath()
+    }
+
+
 
   } // end componentDidMount
 
