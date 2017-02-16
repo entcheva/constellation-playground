@@ -9,7 +9,6 @@ import Constellation from './Constellation'
 class Sky extends Component {
 
   handleLogOutClick() {
-    // bring us to that Log Out action
     this.props.logOutUser()
   }
 
@@ -27,20 +26,17 @@ class Sky extends Component {
     return (
       <div className="Sky">
         <p>You are on the sky page.</p>
-        <h1>
-          Welcome {this.props.username}
-        </h1>
+        <h1>Welcome {this.props.username}</h1>
         <div>
           { this.props.stars.map((star, i) =>
-
             <Star id={star.id} x={star.x} y={star.y} z={star.z} key={i} />
-
           ) }
         </div>
         <div>
           <Constellation />
         </div>
         <button onClick={this.handleSaveClick.bind(this)}>Save Constellation</button>
+        <br /><br />
         <button onClick={this.handleLogOutClick.bind(this)}>Log Out</button>
       </div>
     )
@@ -56,8 +52,6 @@ function mapStateToProps (state){
     username: state.user.username,
     stars: state.stars,
     constellation: state.constellation
-    // selectedStars: state.selectedStars
-    // The global state is {user: {username: 'stardude'}}
   }
 }
 

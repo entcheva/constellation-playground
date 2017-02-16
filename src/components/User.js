@@ -14,7 +14,7 @@ class User extends Component {
   handleSubmit(event) {
     event.preventDefault()
     const user = {username: this.refs.username.value, email: this.refs.email.value, password: this.refs.password.value, password_confirmation: this.refs.passwordConfirmation.value}
-    this.props.createUser(user) // calling the createUser action
+    this.props.createUser(user)
   }
 
   handleLogin(event) {
@@ -64,8 +64,6 @@ class User extends Component {
   }
 
 }
-
-
 
 const mapDispatchToProps = (dispatch) => {
   return bindActionCreators({createUser, logInUser}, dispatch)

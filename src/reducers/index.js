@@ -9,10 +9,6 @@ const rootReducer = combineReducers({
   user: usersReducer,
   stars: starsReducer,
   constellation: constellationReducer
-
-  // usersReducer === {username: "stardude"}
-
-  // This sets the global state to => {user: {username: "stardude"}}
 })
 
 

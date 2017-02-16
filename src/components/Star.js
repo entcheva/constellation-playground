@@ -3,7 +3,6 @@ import { connect } from 'react-redux'
 import { bindActionCreators } from 'redux'
 import { addToConstellation, removeFromConstellation } from '../actions'
 
-
 class Star extends Component {
 
   constructor(){
@@ -45,15 +44,8 @@ class Star extends Component {
 
 }
 
-
 const mapDispatchToProps = (dispatch) => {
   return bindActionCreators({addToConstellation, removeFromConstellation}, dispatch)
 }
-
-// function mapStateToProps (state){
-//   return {
-//
-//   }
-// }
 
 export default connect(null, mapDispatchToProps)(Star)

@@ -4,7 +4,6 @@ import { connect } from 'react-redux'
 class Constellation extends Component {
 
   render() {
-    // debugger
     return (
       <div>
         <h2>Constellation:</h2>

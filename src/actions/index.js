@@ -1,16 +1,12 @@
 import axios from 'axios'
 import { browserHistory } from 'react-router'
-// import userAdapter from '..adapters/userAdapter'
 
 axios.defaults.baseURL = "http://localhost:3000/api/v1"
 axios.defaults.headers.common['AUTHORIZATION'] = sessionStorage.getItem('jwt')
 
-export const createUser = (user) => {
-  // call on Rails API to hit the Create action
-  const response = axios.post('/signup', user)
-    .then( (userData) => {
-    // user is object with form data
-    // userData includes jwt token and other Rails info
+export const createUser = (user) => {  // call on Rails API to hit the Create action
+  const response = axios.post('/signup', user)  // user is object with form data
+    .then( (userData) => {  // userData includes jwt token and other Rails info
       sessionStorage.setItem('jwt', userData.data.jwt) // send jwt token to session storage
       browserHistory.push("/") // alters the URL in browser
       return userData // sets the response to equal username
@@ -21,8 +17,7 @@ export const createUser = (user) => {
   }
 }
 
-export const logInUser = (user) => {
-  // call on Rails API to match and decode token
+export const logInUser = (user) => {  // call on Rails API to match and decode token
   const response = axios.post('/login', user)
     .then( (userData) => {
       sessionStorage.setItem('jwt', userData.data.jwt)
@@ -61,7 +56,6 @@ export const fetchStars = () => {
 }
 
 export const addToConstellation = (star) => {
-  // constellationArray.push(star)
   return {
     type: 'ADD_TO_CONSTELLATION',
     payload: star
@@ -78,7 +72,7 @@ export const removeFromConstellation = (star) => {
 export const saveConstellation = (array) => {
   axios.defaults.headers.common['AUTHORIZATION'] = sessionStorage.getItem('jwt')
   const starIDArray = array.map( star => star.id )
-  const userData = axios.get('/active_id')
+  axios.get('/active_id')
     .then( (userData) => {
       const userID = userData.data.user_id
       const data = {
