@@ -25,9 +25,14 @@ export default class Canvas extends Component {
 
 
   render () {
+
+    const background = {
+      backgroundColor: "#000"
+    }
+
     return (
       <div>
-        <canvas ref="starfield" width={750} height={500}></canvas>
+        <canvas ref="starfield" width={window.innerWidth} height={window.innerHeight} style={background}></canvas>
       </div>
     )
   }
