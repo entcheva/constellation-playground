@@ -2,15 +2,12 @@ import React from 'react'
 import { Route, IndexRoute } from 'react-router'
 import App from './components/App'
 import User from './components/User'
-import Sky from './components/Sky'
-import Canvas from './components/Canvas'
-import SVG from './components/svg'
+import SkySVG from './components/SkySVG'
+// import Sky from './components/Sky'
 
 export default (
   <Route path="/" component={App}>
-    <IndexRoute component={Sky} />
+    <IndexRoute component={SkySVG} />
     <Route path="/signup" component={User}></Route>
-    <Route path="/canvas" component={Canvas}></Route>
-    <Route path="/svg" component={SVG}></Route>
   </Route>
 )

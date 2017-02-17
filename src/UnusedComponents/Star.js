@@ -5,19 +5,10 @@ import { addToConstellation, removeFromConstellation } from '../actions'
 
 class Star extends Component {
 
-  // constructor(){
-  //   super()
-  //
-  //   this.state = {
-  //     selected: false,
-  //     // timestamp: null
-  //   }
-  // }
-
   handleStarClick(event) {
     console.log(Date.now())
     console.log(this.props.id)
-    
+
     const constellation = this.props.constellation.map((star) => star.id).join().replace(/,/g , ' ')
     if (constellation.includes(this.props.id)) {
       this.props.removeFromConstellation(this.props)
@@ -25,19 +16,6 @@ class Star extends Component {
       this.props.addToConstellation(this.props)
     }
 
-    // if (this.state.selected === false){
-    //   this.setState({
-    //     selected: true,
-    //     // timestamp: Date.now()
-    //   })
-    //   this.props.addToConstellation(this.props)
-    // } else {
-    //   this.setState({
-    //     selected: false,
-    //     // timestamp: null
-    //   })
-    //   this.props.removeFromConstellation(this.props)
-    // }
   }
 
   render() {
