@@ -54,15 +54,32 @@ class SkySVG extends Component {
         strokeWidth: 2
       }
 
+      var rectStyle = {
+        fill: 'hsla(200, 100%, 50%, 0.8)',
+        strokeWidth: 1,
+        stroke: 'white',
+        opacity: '.5'
+      }
+
+      var textStyle = {
+        fontFamily: "Verdana",
+      }
+
       const starsArray = this.createLittleStars()
       return (
-        <svg width={window.innerWidth} height={window.innerHeight} style={background}>
-          { this.props.stars.map((star, i) =>
-            <SuperStar key={i} id={star.id} x={star.x} y={star.y} z={star.z} />
-          )}
-          <line x1="30" y1="30" x2="100" y2="100" style={lineStyle}/>
-          {starsArray.map( star => <circle key={star.key} cx={star.cx} cy={star.cy} r={star.r} fill="hsla(200, 100%, 50%, 0.8)" />)}
-        </svg>
+
+          <svg width={window.innerWidth} height={window.innerHeight} style={background}>
+            <g onClick={this.handleSaveClick.bind(this)}>
+             <rect width="140" height="30" x='20' y='500' rx="5" ry="5" style={rectStyle} />
+             <text x="30" y="520" style={textStyle} fill="white">Save Constellation</text>
+            </g>
+            { this.props.stars.map((star, i) =>
+              <SuperStar key={i} id={star.id} x={star.x} y={star.y} z={star.z} />
+            )}
+            <line x1="30" y1="30" x2="100" y2="100" style={lineStyle}/>
+            {starsArray.map( star => <circle key={star.key} cx={star.cx} cy={star.cy} r={star.r} fill="hsla(200, 100%, 50%, 0.8)" />)}
+          </svg>
+
       )
 
   }
