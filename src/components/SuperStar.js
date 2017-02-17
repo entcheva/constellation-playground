@@ -25,15 +25,21 @@ class SuperStar extends Component {
         z: this.props.z
       })
     }
+  }
 
+  componentDidUpdate() {
     const starsArray = this.props.constellation
     if (starsArray.length > 1) {
       this.props.createLine(starsArray)
     }
-
   }
 
+
+
+
+
   render() {
+
     return (
       <circle onClick={this.handleStarClick.bind(this)} cx={this.props.x} cy={this.props.y} r='5' fill='white' />
     )

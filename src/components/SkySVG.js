@@ -42,17 +42,7 @@ class SkySVG extends Component {
     return starsArray
   }
 
-  //
-  // var star1x, star1y, star2x, star2y
-  //
-  // createLine() {
-  //   // check how many stars are in the constellation state
-  //
-  // }
 
-  // drawLines() {
-  //   <line x1={this.props.constellation[0].x} y1={this.props.constellation[0].y} x2={this.props.constellation[1].x} y2={this.props.constellation[1].y} />
-  // }
 
   render() {
 
@@ -93,7 +83,7 @@ class SkySVG extends Component {
             )}
 
             { this.props.lines.map((line, i) =>
-              <line x1={line.star1x} y1={line.star1y} x2={line.star2x} y2={line.star2y} style={lineStyle} />
+              <line key={i} x1={line.star1x} y1={line.star1y} x2={line.star2x} y2={line.star2y} style={lineStyle} />
             ) }
 
             <text x={window.innerWidth - 110} y="20" style={textStyle} fill="white">{this.props.username}</text>
