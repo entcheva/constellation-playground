@@ -68,10 +68,16 @@ class SkySVG extends Component {
       const starsArray = this.createLittleStars()
       return (
 
+          // <svg width={window.innerWidth} height={window.innerHeight} style={background}>
           <svg width={window.innerWidth} height={window.innerHeight} style={background}>
+            <text x={window.innerWidth - 110} y="20" style={textStyle} fill="white">{this.props.username}</text>
             <g onClick={this.handleSaveClick.bind(this)}>
-             <rect width="140" height="30" x='20' y='500' rx="5" ry="5" style={rectStyle} />
-             <text x="30" y="520" style={textStyle} fill="white">Save Constellation</text>
+             <rect width="170" height="30" x='20' y={window.innerHeight - 50} rx="5" ry="5" style={rectStyle} />
+             <text x="30" y={window.innerHeight - 30} style={textStyle} fill="white">Save Constellation</text>
+            </g>
+            <g onClick={this.handleLogOutClick.bind(this)}>
+             <rect width="100" height="30" x={window.innerWidth - 120} y={window.innerHeight - 50} rx="5" ry="5" style={rectStyle} />
+             <text x={window.innerWidth - 100} y={window.innerHeight - 30} style={textStyle} fill="white">Log Out</text>
             </g>
             { this.props.stars.map((star, i) =>
               <SuperStar key={i} id={star.id} x={star.x} y={star.y} z={star.z} />
