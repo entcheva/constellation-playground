@@ -103,3 +103,17 @@ export const addNewConstellation = (array) => {
       stars_array: starsArray}
     }
 }
+
+export const createLine  = (starsArray) => {
+  const line = {
+    star1x: starsArray[starsArray.length - 1].x,
+    star1y: starsArray[starsArray.length - 1].y,
+    star2x: starsArray[starsArray.length - 2].x,
+    star2y: starsArray[starsArray.length - 2].y
+  }
+  return {
+    type: 'CREATE_LINE',
+    payload: line
+  }
+
+}

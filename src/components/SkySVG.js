@@ -42,17 +42,23 @@ class SkySVG extends Component {
     return starsArray
   }
 
+  //
+  // var star1x, star1y, star2x, star2y
+  //
+  // createLine() {
+  //   // check how many stars are in the constellation state
+  //
+  // }
+
+  // drawLines() {
+  //   <line x1={this.props.constellation[0].x} y1={this.props.constellation[0].y} x2={this.props.constellation[1].x} y2={this.props.constellation[1].y} />
+  // }
 
   render() {
 
       var background = {
         backgroundColor: '#000000',
         cursor: 'crosshair'
-      }
-
-      var lineStyle = {
-        stroke: '#ffffff',
-        strokeWidth: 2
       }
 
       var rectStyle = {
@@ -70,16 +76,26 @@ class SkySVG extends Component {
         fontFamily: "Verdana",
       }
 
-      const starsArray = this.createLittleStars()
+      var lineStyle = {
+        stroke: '#ffffff',
+        strokeWidth: 2
+      }
+
+      const littleStars = this.createLittleStars()
+
       return (
 
           // <svg width={window.innerWidth} height={window.innerHeight} style={background}>
           <svg width={window.innerWidth} height={window.innerHeight} style={background}>
-            {starsArray.map( star => <circle key={star.key} cx={star.cx} cy={star.cy} r={star.r} fill="hsla(200, 100%, 50%, 0.8)" />)}
+            {littleStars.map( star => <circle key={star.key} cx={star.cx} cy={star.cy} r={star.r} fill="hsla(200, 100%, 50%, 0.8)" />)}
             { this.props.stars.map((star, i) =>
               <SuperStar key={i} id={star.id} x={star.x} y={star.y} z={star.z} />
             )}
-            <line x1="30" y1="30" x2="100" y2="100" style={lineStyle}/>
+
+            { this.props.lines.map((line, i) =>
+              <line x1={line.star1x} y1={line.star1y} x2={line.star2x} y2={line.star2y} style={lineStyle} />
+            ) }
+
             <text x={window.innerWidth - 110} y="20" style={textStyle} fill="white">{this.props.username}</text>
             <g onClick={this.handleSaveClick.bind(this)} style={buttonStyle}>
              <rect width="170" height="30" x='20' y={window.innerHeight - 50} rx="5" ry="5" style={rectStyle} />
@@ -105,7 +121,8 @@ function mapStateToProps (state){
     username: state.user.username,
     stars: state.stars,
     constellation: state.constellation,
-    myConstellations: state.myConstellations
+    myConstellations: state.myConstellations,
+    lines: state.lines
   }
 }
 
