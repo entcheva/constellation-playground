@@ -46,7 +46,8 @@ class SkySVG extends Component {
   render() {
 
       var background = {
-        backgroundColor: '#000000'
+        backgroundColor: '#000000',
+        cursor: 'crosshair'
       }
 
       var lineStyle = {
@@ -58,7 +59,11 @@ class SkySVG extends Component {
         fill: 'hsla(200, 100%, 50%, 0.8)',
         strokeWidth: 1,
         stroke: 'white',
-        opacity: '.5'
+      }
+
+      var buttonStyle = {
+        zIndex: 10,
+        cursor: 'pointer'
       }
 
       var textStyle = {
@@ -70,20 +75,20 @@ class SkySVG extends Component {
 
           // <svg width={window.innerWidth} height={window.innerHeight} style={background}>
           <svg width={window.innerWidth} height={window.innerHeight} style={background}>
-            <text x={window.innerWidth - 110} y="20" style={textStyle} fill="white">{this.props.username}</text>
-            <g onClick={this.handleSaveClick.bind(this)}>
-             <rect width="170" height="30" x='20' y={window.innerHeight - 50} rx="5" ry="5" style={rectStyle} />
-             <text x="30" y={window.innerHeight - 30} style={textStyle} fill="white">Save Constellation</text>
-            </g>
-            <g onClick={this.handleLogOutClick.bind(this)}>
-             <rect width="100" height="30" x={window.innerWidth - 120} y={window.innerHeight - 50} rx="5" ry="5" style={rectStyle} />
-             <text x={window.innerWidth - 100} y={window.innerHeight - 30} style={textStyle} fill="white">Log Out</text>
-            </g>
+            {starsArray.map( star => <circle key={star.key} cx={star.cx} cy={star.cy} r={star.r} fill="hsla(200, 100%, 50%, 0.8)" />)}
             { this.props.stars.map((star, i) =>
               <SuperStar key={i} id={star.id} x={star.x} y={star.y} z={star.z} />
             )}
             <line x1="30" y1="30" x2="100" y2="100" style={lineStyle}/>
-            {starsArray.map( star => <circle key={star.key} cx={star.cx} cy={star.cy} r={star.r} fill="hsla(200, 100%, 50%, 0.8)" />)}
+            <text x={window.innerWidth - 110} y="20" style={textStyle} fill="white">{this.props.username}</text>
+            <g onClick={this.handleSaveClick.bind(this)} style={buttonStyle}>
+             <rect width="170" height="30" x='20' y={window.innerHeight - 50} rx="5" ry="5" style={rectStyle} />
+             <text x="30" y={window.innerHeight - 30} style={textStyle} fill="white">Save Constellation</text>
+            </g>
+            <g onClick={this.handleLogOutClick.bind(this)} style={buttonStyle}>
+             <rect width="100" height="30" x={window.innerWidth - 120} y={window.innerHeight - 50} rx="5" ry="5" style={rectStyle} />
+             <text x={window.innerWidth - 100} y={window.innerHeight - 30} style={textStyle} fill="white">Log Out</text>
+            </g>
           </svg>
 
       )
