@@ -43,10 +43,9 @@ export default class Canvas extends Component {
       context.closePath()
     }
 
-
+    canvas.addEventListener('click', clickAlert)
 
   } // end componentDidMount
-
 
 
   render () {
@@ -62,4 +61,10 @@ export default class Canvas extends Component {
     )
   }
 
+}
+
+
+
+function clickAlert() {
+  alert('clicked!')
 }
