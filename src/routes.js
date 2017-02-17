@@ -4,7 +4,6 @@ import App from './components/App'
 import User from './components/User'
 import Sky from './components/Sky'
 import Canvas from './components/Canvas'
-import ReactFabric from './components/reactFabric'
 import SVG from './components/svg'
 
 export default (
@@ -12,7 +11,6 @@ export default (
     <IndexRoute component={Sky} />
     <Route path="/signup" component={User}></Route>
     <Route path="/canvas" component={Canvas}></Route>
-    <Route path="/reactFabric" component={ReactFabric}></Route>
     <Route path="/svg" component={SVG}></Route>
   </Route>
 )

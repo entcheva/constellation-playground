@@ -52,7 +52,7 @@ class SVG extends React.Component {
           <circle key={i} cx={star.x} cy={star.y} r={5} fill="white" onClick={this.handleClick.bind(this, i)} />
         )}
         <line x1="30" y1="30" x2="100" y2="100" style={lineStyle}/>
-        {starsArray.map( star => <circle key={star.key} cx={star.cx} cy={star.cy} r={star.r} fill="white" />)}
+        {starsArray.map( star => <circle key={star.key} cx={star.cx} cy={star.cy} r={star.r} fill="hsla(200, 100%, 50%, 0.8)" />)}
       </svg>
     )
   }
