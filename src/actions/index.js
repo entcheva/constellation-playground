@@ -8,7 +8,7 @@ export const createUser = (user) => {  // call on Rails API to hit the Create ac
   const response = axios.post('/signup', user)  // user is object with form data
     .then( (userData) => {  // userData includes jwt token and other Rails info
       sessionStorage.setItem('jwt', userData.data.jwt) // send jwt token to session storage
-      browserHistory.push("/") // alters the URL in browser
+      browserHistory.push("/sky") // alters the URL in browser
       return userData // sets the response to equal username
     })
   return {
@@ -21,7 +21,7 @@ export const logInUser = (user) => {  // call on Rails API to match and decode t
   const response = axios.post('/login', user)
     .then( (userData) => {
       sessionStorage.setItem('jwt', userData.data.jwt)
-      browserHistory.push("/")
+      browserHistory.push("/sky")
       return userData
     })
   return {
@@ -32,7 +32,7 @@ export const logInUser = (user) => {  // call on Rails API to match and decode t
 
 export const logOutUser = () => {
   sessionStorage.clear()
-  browserHistory.push("/signup")
+  browserHistory.push("/")
   return {
     type: 'LOG_OUT'
   }
