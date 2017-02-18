@@ -1,7 +1,7 @@
 import React, { Component } from 'react'
 import { connect } from 'react-redux'
 import { bindActionCreators } from 'redux'
-import { addToConstellation, removeFromConstellation, createLine } from '../actions'
+import { addToConstellation, removeFromConstellation } from '../actions'
 
 class SuperStar extends Component {
 
@@ -27,28 +27,6 @@ class SuperStar extends Component {
     }
   }
 
-  // componentDidUpdate(prevProps) {
-  //   const starsArray = this.props.constellation
-  //   if (starsArray.length > 1) {
-  //     // const star1x = starsArray[starsArray.length - 1].x
-  //     // const star1y = starsArray[starsArray.length - 1].y
-  //     // const star2x = starsArray[starsArray.length - 2].x
-  //     // const star2y = starsArray[starsArray.length - 2].y
-  //     // const existingLine = this.props.lines.filter(function(line){
-  //     //   return line.star1x === star1x && line.star1y === star1y && line.star2x === star2x && line.star2y === star2y
-  //     // })
-  //     // if (existingLine.length === 0) {
-  //       this.props.createLine(starsArray, this.props.lines)
-  //     // }
-  //   }
-  //
-  // }
-
-
-
-
-
-
   render() {
 
     return (
@@ -59,7 +37,7 @@ class SuperStar extends Component {
 }
 
 const mapDispatchToProps = (dispatch) => {
-  return bindActionCreators({addToConstellation, removeFromConstellation, createLine}, dispatch)
+  return bindActionCreators({addToConstellation, removeFromConstellation}, dispatch)
 }
 
 const mapStateToProps = (state) => {

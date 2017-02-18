@@ -114,7 +114,6 @@ class SkySVG extends Component {
               <SuperStar key={i} id={star.id} x={star.x} y={star.y} z={star.z} />
             )}
 
-
             { this.state.lines.map((line, i) =>
               <line key={i} x1={line.star1x} y1={line.star1y} x2={line.star2x} y2={line.star2y} style={lineStyle} />
             ) }
