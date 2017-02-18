@@ -27,22 +27,22 @@ class SuperStar extends Component {
     }
   }
 
-  componentDidUpdate(prevProps) {
-    const starsArray = this.props.constellation
-    if (starsArray.length > 1) {
-      // const star1x = starsArray[starsArray.length - 1].x
-      // const star1y = starsArray[starsArray.length - 1].y
-      // const star2x = starsArray[starsArray.length - 2].x
-      // const star2y = starsArray[starsArray.length - 2].y
-      // const existingLine = this.props.lines.filter(function(line){
-      //   return line.star1x === star1x && line.star1y === star1y && line.star2x === star2x && line.star2y === star2y
-      // })
-      // if (existingLine.length === 0) {
-        this.props.createLine(starsArray, this.props.lines)
-      // }
-    }
-
-  }
+  // componentDidUpdate(prevProps) {
+  //   const starsArray = this.props.constellation
+  //   if (starsArray.length > 1) {
+  //     // const star1x = starsArray[starsArray.length - 1].x
+  //     // const star1y = starsArray[starsArray.length - 1].y
+  //     // const star2x = starsArray[starsArray.length - 2].x
+  //     // const star2y = starsArray[starsArray.length - 2].y
+  //     // const existingLine = this.props.lines.filter(function(line){
+  //     //   return line.star1x === star1x && line.star1y === star1y && line.star2x === star2x && line.star2y === star2y
+  //     // })
+  //     // if (existingLine.length === 0) {
+  //       this.props.createLine(starsArray, this.props.lines)
+  //     // }
+  //   }
+  //
+  // }
 
 
 
@@ -64,8 +64,8 @@ const mapDispatchToProps = (dispatch) => {
 
 const mapStateToProps = (state) => {
   return {
-    constellation: state.constellation,
-    lines: state.lines
+    constellation: state.constellation
+    // lines: state.lines
   }
 }
 

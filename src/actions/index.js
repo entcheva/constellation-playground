@@ -88,9 +88,9 @@ export const saveConstellation = (array) => {
 
 export const fetchMyConstellations = () => {
   const response = axios.get('/my_constellations')
-    .then( () => {
-      // Create lines based on existing constellations
-    })
+    // .then( () => {
+    //   // Create lines based on existing constellations
+    // })
   return {
     type: 'FETCH_MY_CONSTELLATIONS',
     payload: response
