@@ -7,6 +7,14 @@ import SuperStar from './SuperStar'
 
 class SkySVG extends Component {
 
+  constructor(props) {
+    super(props)
+
+    this.state = {
+      littleStars: this.createLittleStars()
+    }
+  }
+
   handleLogOutClick() {
     this.props.logOutUser()
   }
@@ -21,6 +29,7 @@ class SkySVG extends Component {
     this.props.fetchUsername()
     this.props.fetchStars()
     this.props.fetchMyConstellations()
+    // const littleStars = this.createLittleStars()
   }
 
   createLittleStars(){
@@ -71,13 +80,13 @@ class SkySVG extends Component {
         strokeWidth: 2
       }
 
-      const littleStars = this.createLittleStars()
+      // const littleStars = this.createLittleStars()
 
       return (
 
           // <svg width={window.innerWidth} height={window.innerHeight} style={background}>
           <svg width={window.innerWidth} height={window.innerHeight} style={background}>
-            {littleStars.map( star => <circle key={star.key} cx={star.cx} cy={star.cy} r={star.r} fill="hsla(200, 100%, 50%, 0.8)" />)}
+            {this.state.littleStars.map( star => <circle key={star.key} cx={star.cx} cy={star.cy} r={star.r} fill="hsla(200, 100%, 50%, 0.8)" />)}
             { this.props.stars.map((star, i) =>
               <SuperStar key={i} id={star.id} x={star.x} y={star.y} z={star.z} />
             )}
