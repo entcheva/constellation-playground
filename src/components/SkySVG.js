@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux'
 import { bindActionCreators } from 'redux'
-import { logOutUser, fetchUsername, fetchStars, saveConstellation, fetchMyConstellations, addNewConstellation } from '../actions'
+import { logOutUser, fetchUsername, fetchStars, saveConstellation, fetchMyConstellations, addNewConstellation, drawLines } from '../actions'
 import SuperStar from './SuperStar'
 
 
@@ -29,6 +29,7 @@ class SkySVG extends Component {
     this.props.fetchUsername()
     this.props.fetchStars()
     this.props.fetchMyConstellations()
+    this.props.drawLines(this.props.constellation)
   }
 
   createLittleStars(){
@@ -75,6 +76,7 @@ class SkySVG extends Component {
 
 
 
+
   render() {
 
       var background = {
@@ -103,7 +105,6 @@ class SkySVG extends Component {
       }
 
       const littleStars = this.createLittleStars()
-      // const newLine = this.createLine()
 
       return (
 
@@ -115,6 +116,10 @@ class SkySVG extends Component {
             )}
 
             { this.state.lines.map((line, i) =>
+              <line key={i} x1={line.star1x} y1={line.star1y} x2={line.star2x} y2={line.star2y} style={lineStyle} />
+            ) }
+
+            { this.props.lines.map((line, i) =>
               <line key={i} x1={line.star1x} y1={line.star1y} x2={line.star2x} y2={line.star2y} style={lineStyle} />
             ) }
 
@@ -135,7 +140,7 @@ class SkySVG extends Component {
 }
 
 const mapDispatchToProps = (dispatch) => {
-  return bindActionCreators({logOutUser, fetchUsername, fetchStars, saveConstellation, fetchMyConstellations, addNewConstellation}, dispatch)
+  return bindActionCreators({logOutUser, fetchUsername, fetchStars, saveConstellation, fetchMyConstellations, addNewConstellation, drawLines}, dispatch)
 }
 
 function mapStateToProps (state){
@@ -143,8 +148,8 @@ function mapStateToProps (state){
     username: state.user.username,
     stars: state.stars,
     constellation: state.constellation,
-    myConstellations: state.myConstellations
-    // lines: state.lines
+    myConstellations: state.myConstellations,
+    lines: state.lines
   }
 }
 
