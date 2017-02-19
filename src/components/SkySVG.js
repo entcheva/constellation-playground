@@ -29,7 +29,7 @@ class SkySVG extends Component {
     this.props.fetchUsername()
     this.props.fetchStars()
     this.props.fetchMyConstellations()
-    // const littleStars = this.createLittleStars()
+    // this.drawLines(this.props.myConstellations)
   }
 
   createLittleStars(){
@@ -51,6 +51,33 @@ class SkySVG extends Component {
     return starsArray
   }
 
+
+  componentDidUpdate() {
+    const starsArray = this.props.constellation
+    if (starsArray.length > 1) {
+      const star1x = starsArray[starsArray.length - 1].x
+      const star1y = starsArray[starsArray.length - 1].y
+      const star2x = starsArray[starsArray.length - 2].x
+      const star2y = starsArray[starsArray.length - 2].y
+      const existingLine = this.state.lines.filter(function(line){
+        return line.star1x === star1x && line.star1y === star1y && line.star2x === star2x && line.star2y === star2y
+      })
+      if (existingLine.length === 0) {
+        this.setState({
+          lines: [...this.state.lines, {
+            star1x: star1x,
+            star1y: star1y,
+            star2x: star2x,
+            star2y: star2y
+          }]
+        })
+      }
+    }
+  }
+
+  // drawLines(constellationData) {
+  //   debugger
+  // }
 
 
   render() {
