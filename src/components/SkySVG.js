@@ -30,7 +30,6 @@ class SkySVG extends Component {
     this.props.fetchUsername()
     this.props.fetchStars()
     this.props.fetchMyConstellations()
-    // this.drawLines(this.props.myConstellations)
   }
 
   createLittleStars(){
@@ -56,32 +55,76 @@ class SkySVG extends Component {
   componentDidUpdate() {
     const starsArray = this.props.constellation
     if (starsArray.length > 1) {
-      const star1x = starsArray[starsArray.length - 1].x
-      const star1y = starsArray[starsArray.length - 1].y
-      const star2x = starsArray[starsArray.length - 2].x
-      const star2y = starsArray[starsArray.length - 2].y
-      const existingLine = this.state.lines.filter(function(line){
-        return line.star1x === star1x && line.star1y === star1y && line.star2x === star2x && line.star2y === star2y
-      })
-      if (existingLine.length === 0) {
-        this.setState({
-          lines: [...this.state.lines, {
-            star1x: star1x,
-            star1y: star1y,
-            star2x: star2x,
-            star2y: star2y
-          }]
-        })
-      }
+      this.drawLine(starsArray)
     }
   }
 
-  // drawLines(constellationData) {
-  //   debugger
-  // }
+  drawLine(starsArray) {
+    const star1x = starsArray[starsArray.length - 1].x
+    const star1y = starsArray[starsArray.length - 1].y
+    const star2x = starsArray[starsArray.length - 2].x
+    const star2y = starsArray[starsArray.length - 2].y
+    const existingLine = this.state.lines.filter(function(line){
+      return line.star1x === star1x && line.star1y === star1y && line.star2x === star2x && line.star2y === star2y
+    })
+    if (existingLine.length === 0) {
+      this.setState({
+        lines: [...this.state.lines, {
+          star1x: star1x,
+          star1y: star1y,
+          star2x: star2x,
+          star2y: star2y
+        }]
+      })
+    }
+  }
+
 
 
   render() {
+
+    ///// Start creating lines from saved constellations /////
+
+    const savedLines = []
+
+    if (this.props.myConstellations.length > 0) {
+
+      const constellations = this.props.myConstellations
+
+      let constellationsArray = []
+
+      constellationsArray = constellations.map ( (constellation) => {
+        return constellation.stars_array.map( (starID) => {
+          return this.props.stars.find ( (star) => star.id == starID )
+        } )
+      } )
+
+      constellationsArray.forEach ( (constellation) => {
+
+        constellation.map( (star, i) => {
+
+          if (!!constellation[i + 1]){
+
+            const star1x = star.x
+            const star1y = star.y
+            const star2x = constellation[i + 1].x
+            const star2y = constellation[i + 1].y
+
+            let line = {
+              star1x: star1x,
+              star1y: star1y,
+              star2x: star2x,
+              star2y: star2y
+            }
+
+            savedLines.push(line)
+          }
+        })
+      })
+
+    }
+
+    ///// End creating lines from saved constellations /////
 
       var background = {
         backgroundColor: '#000000',
@@ -115,10 +158,10 @@ class SkySVG extends Component {
           // <svg width={window.innerWidth} height={window.innerHeight} style={background}>
           <svg width={window.innerWidth} height={window.innerHeight} style={background}>
             {this.state.littleStars.map( star => <circle key={star.key} cx={star.cx} cy={star.cy} r={star.r} fill="hsla(200, 100%, 50%, 0.8)" />)}
-            
-            { this.props.stars.map((star, i) =>
-              <SuperStar key={i} id={star.id} x={star.x} y={star.y} z={star.z} />
-            )}
+
+            { savedLines.map((line, i) =>
+              <line key={i} x1={line.star1x} y1={line.star1y} x2={line.star2x} y2={line.star2y} style={lineStyle} />
+            ) }
 
             { this.state.lines.map((line, i) =>
               <line key={i} x1={line.star1x} y1={line.star1y} x2={line.star2x} y2={line.star2y} style={lineStyle} />
@@ -128,6 +171,9 @@ class SkySVG extends Component {
               <line key={i} x1={line.star1x} y1={line.star1y} x2={line.star2x} y2={line.star2y} style={lineStyle} />
             ) }
 
+            { this.props.stars.map((star, i) =>
+              <SuperStar key={i} id={star.id} x={star.x} y={star.y} z={star.z} />
+            )}
 
             <text x={window.innerWidth - 110} y="20" style={textStyle} fill="white">{this.props.username}</text>
             <g onClick={this.handleSaveClick.bind(this)} style={buttonStyle}>
