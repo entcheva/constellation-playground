@@ -11,7 +11,8 @@ class SkySVG extends Component {
     super(props)
 
     this.state = {
-      littleStars: this.createLittleStars()
+      littleStars: this.createLittleStars(),
+      lines: []
     }
   }
 
@@ -114,13 +115,19 @@ class SkySVG extends Component {
           // <svg width={window.innerWidth} height={window.innerHeight} style={background}>
           <svg width={window.innerWidth} height={window.innerHeight} style={background}>
             {this.state.littleStars.map( star => <circle key={star.key} cx={star.cx} cy={star.cy} r={star.r} fill="hsla(200, 100%, 50%, 0.8)" />)}
+            
             { this.props.stars.map((star, i) =>
               <SuperStar key={i} id={star.id} x={star.x} y={star.y} z={star.z} />
             )}
 
+            { this.state.lines.map((line, i) =>
+              <line key={i} x1={line.star1x} y1={line.star1y} x2={line.star2x} y2={line.star2y} style={lineStyle} />
+            ) }
+
             { this.props.lines.map((line, i) =>
               <line key={i} x1={line.star1x} y1={line.star1y} x2={line.star2x} y2={line.star2y} style={lineStyle} />
             ) }
+
 
             <text x={window.innerWidth - 110} y="20" style={textStyle} fill="white">{this.props.username}</text>
             <g onClick={this.handleSaveClick.bind(this)} style={buttonStyle}>

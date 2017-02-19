@@ -27,17 +27,6 @@ class SuperStar extends Component {
     }
   }
 
-  componentDidUpdate() {
-    const starsArray = this.props.constellation
-    if (starsArray.length > 1) {
-      this.props.createLine(starsArray)
-    }
-  }
-
-
-
-
-
   render() {
 
     return (
