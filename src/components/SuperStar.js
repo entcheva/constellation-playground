@@ -1,7 +1,7 @@
 import React, { Component } from 'react'
 import { connect } from 'react-redux'
 import { bindActionCreators } from 'redux'
-import { addToConstellation, removeFromConstellation } from '../actions'
+import { addToConstellation, removeFromConstellation, createLine } from '../actions'
 
 class SuperStar extends Component {
 
@@ -27,6 +27,17 @@ class SuperStar extends Component {
     }
   }
 
+  componentDidUpdate() {
+    const starsArray = this.props.constellation
+    if (starsArray.length > 1) {
+      this.props.createLine(starsArray)
+    }
+  }
+
+
+
+
+
   render() {
 
     return (
@@ -37,13 +48,12 @@ class SuperStar extends Component {
 }
 
 const mapDispatchToProps = (dispatch) => {
-  return bindActionCreators({addToConstellation, removeFromConstellation}, dispatch)
+  return bindActionCreators({addToConstellation, removeFromConstellation, createLine}, dispatch)
 }
 
 const mapStateToProps = (state) => {
   return {
     constellation: state.constellation
-    // lines: state.lines
   }
 }
 
