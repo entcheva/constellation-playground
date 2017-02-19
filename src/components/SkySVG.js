@@ -7,11 +7,11 @@ import SuperStar from './SuperStar'
 
 class SkySVG extends Component {
 
-  constructor(){
-    super()
+  constructor(props) {
+    super(props)
 
     this.state = {
-      lines: []
+      littleStars: this.createLittleStars()
     }
   }
 
@@ -50,6 +50,7 @@ class SkySVG extends Component {
     }
     return starsArray
   }
+
 
   componentDidUpdate() {
     const starsArray = this.props.constellation
@@ -106,20 +107,16 @@ class SkySVG extends Component {
         strokeWidth: 2
       }
 
-      const littleStars = this.createLittleStars()
+      // const littleStars = this.createLittleStars()
 
       return (
 
           // <svg width={window.innerWidth} height={window.innerHeight} style={background}>
           <svg width={window.innerWidth} height={window.innerHeight} style={background}>
-            {littleStars.map( star => <circle key={star.key} cx={star.cx} cy={star.cy} r={star.r} fill="hsla(200, 100%, 50%, 0.8)" />)}
+            {this.state.littleStars.map( star => <circle key={star.key} cx={star.cx} cy={star.cy} r={star.r} fill="hsla(200, 100%, 50%, 0.8)" />)}
             { this.props.stars.map((star, i) =>
               <SuperStar key={i} id={star.id} x={star.x} y={star.y} z={star.z} />
             )}
-
-            { this.state.lines.map((line, i) =>
-              <line key={i} x1={line.star1x} y1={line.star1y} x2={line.star2x} y2={line.star2y} style={lineStyle} />
-            ) }
 
             { this.props.lines.map((line, i) =>
               <line key={i} x1={line.star1x} y1={line.star1y} x2={line.star2x} y2={line.star2y} style={lineStyle} />
