@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux'
 import { bindActionCreators } from 'redux'
-import { logOutUser, fetchUsername, fetchStars, saveConstellation, fetchMyConstellations, addNewConstellation, drawLines } from '../actions'
+import { logOutUser, fetchUsername, fetchStars, saveConstellation, fetchMyConstellations, addNewConstellation } from '../actions'
 import SuperStar from './SuperStar'
 
 
@@ -29,7 +29,7 @@ class SkySVG extends Component {
     this.props.fetchUsername()
     this.props.fetchStars()
     this.props.fetchMyConstellations()
-    this.props.drawLines(this.props.constellation)
+    // this.drawLines(this.props.myConstellations)
   }
 
   createLittleStars(){
@@ -74,7 +74,9 @@ class SkySVG extends Component {
     }
   }
 
-
+  // drawLines(constellationData) {
+  //   debugger
+  // }
 
 
   render() {
@@ -140,7 +142,7 @@ class SkySVG extends Component {
 }
 
 const mapDispatchToProps = (dispatch) => {
-  return bindActionCreators({logOutUser, fetchUsername, fetchStars, saveConstellation, fetchMyConstellations, addNewConstellation, drawLines}, dispatch)
+  return bindActionCreators({logOutUser, fetchUsername, fetchStars, saveConstellation, fetchMyConstellations, addNewConstellation}, dispatch)
 }
 
 function mapStateToProps (state){
