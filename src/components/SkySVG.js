@@ -1,14 +1,14 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux'
 import { bindActionCreators } from 'redux'
-import { logOutUser, fetchUsername, fetchStars, saveConstellation, fetchMyConstellations, addNewConstellation } from '../actions'
+import { logOutUser, fetchUsername, fetchStars, saveConstellation, fetchMyConstellations, addNewConstellation, drawLines } from '../actions'
 import SuperStar from './SuperStar'
 
 
 class SkySVG extends Component {
 
-  constructor(props) {
-    super(props)
+  constructor() {
+    super()
 
     this.state = {
       littleStars: this.createLittleStars()
@@ -29,7 +29,8 @@ class SkySVG extends Component {
     this.props.fetchUsername()
     this.props.fetchStars()
     this.props.fetchMyConstellations()
-    // const littleStars = this.createLittleStars()
+    this.props.drawLines(this.props.constellation)
+
   }
 
   createLittleStars(){
@@ -50,6 +51,30 @@ class SkySVG extends Component {
     }
     return starsArray
   }
+
+  componentDidUpdate() {
+    const starsArray = this.props.constellation
+    if (starsArray.length > 1) {
+      const star1x = starsArray[starsArray.length - 1].x
+      const star1y = starsArray[starsArray.length - 1].y
+      const star2x = starsArray[starsArray.length - 2].x
+      const star2y = starsArray[starsArray.length - 2].y
+      const existingLine = this.state.lines.filter(function(line){
+        return line.star1x === star1x && line.star1y === star1y && line.star2x === star2x && line.star2y === star2y
+      })
+      if (existingLine.length === 0) {
+        this.setState({
+          lines: [...this.state.lines, {
+            star1x: star1x,
+            star1y: star1y,
+            star2x: star2x,
+            star2y: star2y
+          }]
+        })
+      }
+    }
+  }
+
 
 
 
@@ -91,6 +116,10 @@ class SkySVG extends Component {
               <SuperStar key={i} id={star.id} x={star.x} y={star.y} z={star.z} />
             )}
 
+            { this.state.lines.map((line, i) =>
+              <line key={i} x1={line.star1x} y1={line.star1y} x2={line.star2x} y2={line.star2y} style={lineStyle} />
+            ) }
+
             { this.props.lines.map((line, i) =>
               <line key={i} x1={line.star1x} y1={line.star1y} x2={line.star2x} y2={line.star2y} style={lineStyle} />
             ) }
@@ -112,7 +141,7 @@ class SkySVG extends Component {
 }
 
 const mapDispatchToProps = (dispatch) => {
-  return bindActionCreators({logOutUser, fetchUsername, fetchStars, saveConstellation, fetchMyConstellations, addNewConstellation}, dispatch)
+  return bindActionCreators({logOutUser, fetchUsername, fetchStars, saveConstellation, fetchMyConstellations, addNewConstellation, drawLines}, dispatch)
 }
 
 function mapStateToProps (state){

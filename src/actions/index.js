@@ -88,6 +88,10 @@ export const saveConstellation = (array) => {
 
 export const fetchMyConstellations = () => {
   const response = axios.get('/my_constellations')
+    .then( () => {
+      // Create lines based on existing constellations
+      // use the drawLines method here!
+    })
   return {
     type: 'FETCH_MY_CONSTELLATIONS',
     payload: response
@@ -104,7 +108,7 @@ export const addNewConstellation = (array) => {
     }
 }
 
-export const createLine  = (starsArray) => {
+export const drawLines  = (starsArray) => {
   const line = {
     star1x: starsArray[starsArray.length - 1].x,
     star1y: starsArray[starsArray.length - 1].y,
@@ -112,8 +116,7 @@ export const createLine  = (starsArray) => {
     star2y: starsArray[starsArray.length - 2].y
   }
   return {
-    type: 'CREATE_LINE',
+    type: 'DRAW_LINE',
     payload: line
   }
-
 }
