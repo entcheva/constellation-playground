@@ -62,10 +62,16 @@ export const addToConstellation = (star) => {
   }
 }
 
-export const removeFromConstellation = (star) => {
+// export const removeFromConstellation = (star) => {
+//   return {
+//     type: 'REMOVE_FROM_CONSTELLATION',
+//     payload: star
+//   }
+// }
+
+export const undo = () => {
   return {
-    type: 'REMOVE_FROM_CONSTELLATION',
-    payload: star
+    type: 'REMOVE_LAST_STAR'
   }
 }
 

@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux'
 import { bindActionCreators } from 'redux'
-import { logOutUser, fetchUsername, fetchStars, saveConstellation, fetchMyConstellations, addNewConstellation } from '../actions'
+import { logOutUser, fetchUsername, fetchStars, saveConstellation, fetchMyConstellations, addNewConstellation, undo } from '../actions'
 import SuperStar from './SuperStar'
 
 
@@ -16,6 +16,19 @@ class SkySVG extends Component {
     }
   }
 
+  componentDidMount(){
+    this.props.fetchUsername()
+    this.props.fetchStars()
+    this.props.fetchMyConstellations()
+  }
+
+  componentDidUpdate() {
+    const starsArray = this.props.constellation
+    if (starsArray.length > 1) {
+      this.drawLine(starsArray)
+    }
+  }
+
   handleLogOutClick() {
     this.props.logOutUser()
   }
@@ -26,10 +39,14 @@ class SkySVG extends Component {
     this.props.addNewConstellation(starsArray)
   }
 
-  componentDidMount(){
-    this.props.fetchUsername()
-    this.props.fetchStars()
-    this.props.fetchMyConstellations()
+  handleUndoClick() {
+    const lines = this.state.lines
+    this.setState({
+      littleStars: this.state.littleStars,
+      lines: lines.slice(0, -1)
+    })
+    this.props.undo()
+    // debugger
   }
 
   createLittleStars(){
@@ -49,14 +66,6 @@ class SkySVG extends Component {
       })
     }
     return starsArray
-  }
-
-
-  componentDidUpdate() {
-    const starsArray = this.props.constellation
-    if (starsArray.length > 1) {
-      this.drawLine(starsArray)
-    }
   }
 
   drawLine(starsArray) {
@@ -121,8 +130,8 @@ class SkySVG extends Component {
           }
         })
       })
-
     }
+
 
     ///// End creating lines from saved constellations /////
 
@@ -148,7 +157,7 @@ class SkySVG extends Component {
 
       var lineStyle = {
         stroke: '#ffffff',
-        strokeWidth: 2
+        strokeWidth: 1
       }
 
       // const littleStars = this.createLittleStars()
@@ -176,10 +185,17 @@ class SkySVG extends Component {
             )}
 
             <text x={window.innerWidth - 110} y="20" style={textStyle} fill="white">{this.props.username}</text>
+
             <g onClick={this.handleSaveClick.bind(this)} style={buttonStyle}>
              <rect width="170" height="30" x='20' y={window.innerHeight - 50} rx="5" ry="5" style={rectStyle} />
              <text x="30" y={window.innerHeight - 30} style={textStyle} fill="white">Save Constellation</text>
             </g>
+
+            <g onClick={this.handleUndoClick.bind(this)} style={buttonStyle}>
+             <rect width="63" height="30" x='200' y={window.innerHeight - 50} rx="5" ry="5" style={rectStyle} />
+             <text x="210" y={window.innerHeight - 30} style={textStyle} fill="white">Undo</text>
+            </g>
+
             <g onClick={this.handleLogOutClick.bind(this)} style={buttonStyle}>
              <rect width="100" height="30" x={window.innerWidth - 120} y={window.innerHeight - 50} rx="5" ry="5" style={rectStyle} />
              <text x={window.innerWidth - 100} y={window.innerHeight - 30} style={textStyle} fill="white">Log Out</text>
@@ -192,7 +208,7 @@ class SkySVG extends Component {
 }
 
 const mapDispatchToProps = (dispatch) => {
-  return bindActionCreators({logOutUser, fetchUsername, fetchStars, saveConstellation, fetchMyConstellations, addNewConstellation}, dispatch)
+  return bindActionCreators({logOutUser, fetchUsername, fetchStars, saveConstellation, fetchMyConstellations, addNewConstellation, undo}, dispatch)
 }
 
 function mapStateToProps (state){
