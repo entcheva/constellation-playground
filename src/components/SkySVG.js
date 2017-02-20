@@ -188,7 +188,7 @@ class SkySVG extends Component {
               <SuperStar key={i} id={star.id} x={star.x} y={star.y} z={star.z} />
             )}
 
-            <text x="20" y="30" style={topTextStyle} fill="white">✨ Constellations Playground ✨</text>
+            <text x="20" y="30" style={topTextStyle} fill="white">✨ Constellation Playground ✨</text>
             <text x={window.innerWidth - 110} y="30" style={topTextStyle} fill="white">{this.props.username}</text>
 
             <g onClick={this.handleSaveClick.bind(this)} style={buttonStyle}>

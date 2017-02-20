@@ -30,7 +30,7 @@ class User extends Component {
       <div>
 
         <div id="styleOnly">
-          <h1 id="title">✨ Constellations Playground ✨</h1>
+          <h1 id="title">✨ Constellation Playground ✨</h1>
 
           <div id="signUp">
             <h2 className="formH2">Sign Up</h2>
