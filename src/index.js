@@ -1,5 +1,7 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
+import './css/style.css'
+
 
 import { createStore, applyMiddleware, compose } from 'redux';
 import { Router, browserHistory } from 'react-router'
