@@ -36,18 +36,24 @@ class SkySVG extends Component {
   handleSaveClick() {
     const starsArray = this.props.constellation
     this.props.saveConstellation(starsArray)
-    this.props.addNewConstellation(starsArray)
+    // this.props.addNewConstellation(starsArray)
   }
 
   handleUndoClick() {
     const lines = this.state.lines
+
+    const lastLine = lines[lines.length - 1]
+    const star = this.props.stars.find( (star) => (star.x === lastLine.star1x && star.y === lastLine.star1y))
+
     this.setState({
       littleStars: this.state.littleStars,
       lines: lines.slice(0, -1)
     })
+
     this.props.undo()
     // debugger
   }
+
 
   createLittleStars(){
     const windowWidth = window.innerWidth
@@ -168,9 +174,23 @@ class SkySVG extends Component {
 
       return (
 
-          // <svg width={window.innerWidth} height={window.innerHeight} style={background}>
           <svg width={window.innerWidth} height={window.innerHeight} style={background}>
-            {this.state.littleStars.map( star => <circle key={star.key} cx={star.cx} cy={star.cy} r={star.r} fill="hsla(200, 100%, 50%, 0.8)" />)}
+
+            <filter id="buttonglow" x="-150%" y="-150%" height="500%" width="500%">
+              <feGaussianBlur stdDeviation="15" result="coloredBlur"/>
+              <feMerge>
+              <feMergeNode in="coloredBlur"/><feMergeNode in="SourceGraphic"/>
+              </feMerge>
+            </filter>
+
+            <filter id="starglow" x="-150%" y="-150%" height="500%" width="500%">
+              <feGaussianBlur stdDeviation="25" result="coloredBlur"/>
+              <feMerge>
+              <feMergeNode in="coloredBlur"/><feMergeNode in="SourceGraphic"/>
+              </feMerge>
+            </filter>
+
+            {this.state.littleStars.map( star => <circle id="glow" key={star.key} cx={star.cx} cy={star.cy} r={star.r} fill="hsla(200, 100%, 50%, 0.8)" />)}
 
             { savedLines.map((line, i) =>
               <line key={i} x1={line.star1x} y1={line.star1y} x2={line.star2x} y2={line.star2y} style={lineStyle} />
@@ -185,11 +205,12 @@ class SkySVG extends Component {
             ) }
 
             { this.props.stars.map((star, i) =>
-              <SuperStar key={i} id={star.id} x={star.x} y={star.y} z={star.z} />
+              <SuperStar key={i} id={star.id} x={star.x} y={star.y} z={star.z}  />
             )}
 
             <text x="20" y="30" style={topTextStyle} fill="white">✨ Constellation Playground ✨</text>
             <text x={window.innerWidth - 110} y="30" style={topTextStyle} fill="white">{this.props.username}</text>
+
 
             <g onClick={this.handleSaveClick.bind(this)} style={buttonStyle}>
              <rect width="170" height="30" x='20' y={window.innerHeight - 50} style={rectStyle} />

@@ -4,6 +4,10 @@ import { browserHistory } from 'react-router'
 axios.defaults.baseURL = "http://localhost:3000/api/v1"
 axios.defaults.headers.common['AUTHORIZATION'] = sessionStorage.getItem('jwt')
 
+if (sessionStorage.length === 0) {
+  browserHistory.push("/")
+}
+
 export const createUser = (user) => {  // call on Rails API to hit the Create action
   const response = axios.post('/signup', user)  // user is object with form data
     .then( (userData) => {  // userData includes jwt token and other Rails info
@@ -21,7 +25,9 @@ export const logInUser = (user) => {  // call on Rails API to match and decode t
   const response = axios.post('/login', user)
     .then( (userData) => {
       sessionStorage.setItem('jwt', userData.data.jwt)
-      browserHistory.push("/sky")
+      if (userData.status === 200){
+        browserHistory.push("/sky")
+      }
       return userData
     })
   return {

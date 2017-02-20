@@ -1,0 +1,4 @@
+g:hover {
+  stroke: white;
+  filter: url(#buttonglow);
+}
