@@ -4,6 +4,10 @@ import { browserHistory } from 'react-router'
 axios.defaults.baseURL = "http://localhost:3000/api/v1"
 axios.defaults.headers.common['AUTHORIZATION'] = sessionStorage.getItem('jwt')
 
+if (sessionStorage.length === 0) {
+  browserHistory.push("/")
+}
+
 export const createUser = (user) => {  // call on Rails API to hit the Create action
   const response = axios.post('/signup', user)  // user is object with form data
     .then( (userData) => {  // userData includes jwt token and other Rails info

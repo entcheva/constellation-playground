@@ -41,13 +41,19 @@ class SkySVG extends Component {
 
   handleUndoClick() {
     const lines = this.state.lines
+
+    const lastLine = lines[lines.length - 1]
+    const star = this.props.stars.find( (star) => (star.x === lastLine.star1x && star.y === lastLine.star1y))
+
     this.setState({
       littleStars: this.state.littleStars,
       lines: lines.slice(0, -1)
     })
+
     this.props.undo()
     // debugger
   }
+
 
   createLittleStars(){
     const windowWidth = window.innerWidth
@@ -194,11 +200,9 @@ class SkySVG extends Component {
               <line key={i} x1={line.star1x} y1={line.star1y} x2={line.star2x} y2={line.star2y} style={lineStyle} />
             ) }
 
-            <g class="superstar" >
             { this.props.stars.map((star, i) =>
-              <SuperStar key={i} id={star.id} x={star.x} y={star.y} z={star.z} />
+              <SuperStar key={i} id={star.id} x={star.x} y={star.y} z={star.z}  />
             )}
-            </g>
 
             <g>
             <text x={window.innerWidth - 110} y="20" style={textStyle} fill="white">{this.props.username}</text>
