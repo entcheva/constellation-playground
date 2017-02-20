@@ -24,39 +24,47 @@ class User extends Component {
   }
 
   render() {
-    return(
-      <div>
-        <div>
-          <h2>Sign Up</h2>
-          <form onSubmit={this.handleSubmit}>
-            <label>Username: </label>
-            <input ref="username" placeholder="Enter Username" />
-            <br/><br/>
-            <label>Email: </label>
-            <input ref="email" placeholder="Enter Email" />
-            <br/><br/>
-            <label>Password: </label>
-            <input type="password" ref="password" placeholder="Enter Password"/>
-            <br/><br/>
-            <label>Password Verification: </label>
-            <input type="password" ref="passwordConfirmation" placeholder="Verify Password"/>
-            <br/><br/>
-            <button type="submit">Sign Up</button>
-          </form>
-          <br/><br/>
-        </div>
 
-        <div>
-          <h2>Log In</h2>
-          <form onSubmit={this.handleLogin}>
-            <label>Email: </label>
-            <input ref="logInEmail" placeholder="Enter Email" />
+    return(
+
+      <div>
+
+        <div id="styleOnly">
+          <h1 id="title">✨ Constellations Playground ✨</h1>
+
+          <div id="signUp">
+            <h2 className="formH2">Sign Up</h2>
+            <form onSubmit={this.handleSubmit} >
+              <label>Username: </label>
+              <input ref="username" placeholder="Enter Username" />
+              <br/><br/>
+              <label>Email: </label>
+              <input ref="email" placeholder="Enter Email" />
+              <br/><br/>
+              <label>Password: </label>
+              <input type="password" ref="password" placeholder="Enter Password"/>
+              <br/><br/>
+              <label>Confirm Password: </label>
+              <input type="password" ref="passwordConfirmation" placeholder="Confirm Password"/>
+              <br/><br/>
+              <button type="submit">Sign Up</button>
+            </form>
             <br/><br/>
-            <label>Password: </label>
-            <input type="password" ref="logInPassword" placeholder="Enter Password"/>
-            <br/><br/>
-            <button type="submit">Log In</button>
-          </form>
+          </div>
+
+          <div id="logIn">
+            <h2 className="formH2">Log In</h2>
+            <form onSubmit={this.handleLogin}>
+              <label>Email: </label>
+              <input ref="logInEmail" placeholder="Enter Email" />
+              <br/><br/>
+              <label>Password: </label>
+              <input type="password" ref="logInPassword" placeholder="Enter Password"/>
+              <br/><br/>
+              <button type="submit">Log In</button>
+            </form>
+          </div>
+
         </div>
 
       </div>
