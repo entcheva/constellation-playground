@@ -7,14 +7,22 @@ class User extends Component {
 
   constructor() {
     super()
+
     this.handleSubmit = this.handleSubmit.bind(this)
     this.handleLogin = this.handleLogin.bind(this)
   }
 
   handleSubmit(event) {
     event.preventDefault()
-    const user = {username: this.refs.username.value, email: this.refs.email.value, password: this.refs.password.value, password_confirmation: this.refs.passwordConfirmation.value}
-    this.props.createUser(user)
+    const username = this.refs.username.value
+    const email = this.refs.email.value
+    const password = this.refs.password.value
+    const passwordConfirmation = this.refs.passwordConfirmation.value
+
+    if (username !== "" && email !== "" && password !== "" && passwordConfirmation !== "") {
+      const user = {username: username, email: email, password: password, password_confirmation: passwordConfirmation}
+      this.props.createUser(user)
+    }
   }
 
   handleLogin(event) {
@@ -37,16 +45,16 @@ class User extends Component {
           <h2>Sign Up</h2>
           <form onSubmit={this.handleSubmit}>
             <label>Username: </label>
-            <input ref="username" placeholder="Enter Username" />
+            <input ref="username" placeholder="Enter Username" required />
             <br/><br/>
             <label>Email: </label>
-            <input ref="email" placeholder="Enter Email" />
+            <input type="email" ref="email" placeholder="Enter Email" required />
             <br/><br/>
             <label>Password: </label>
-            <input type="password" ref="password" placeholder="Enter Password"/>
+            <input type="password" ref="password" placeholder="Enter Password" required/>
             <br/><br/>
             <label>Password Verification: </label>
-            <input type="password" ref="passwordConfirmation" placeholder="Verify Password"/>
+            <input type="password" ref="passwordConfirmation" placeholder="Verify Password" required/>
             <br/><br/>
             <button type="submit">Sign Up</button>
           </form>
