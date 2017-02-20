@@ -23,7 +23,14 @@ class User extends Component {
     this.props.logInUser(user)
   }
 
+  invalidUser() {
+    if (this.props.user === ""){
+      return "Please submit a valid email and password."
+    }
+  }
+
   render() {
+
     return(
       <div>
         <div>
@@ -48,6 +55,7 @@ class User extends Component {
 
         <div>
           <h2>Log In</h2>
+          <p>{this.invalidUser()}</p>
           <form onSubmit={this.handleLogin}>
             <label>Email: </label>
             <input ref="logInEmail" placeholder="Enter Email" />
@@ -59,14 +67,21 @@ class User extends Component {
           </form>
         </div>
 
+
       </div>
     )
   }
 
 }
 
+const mapStateToProps = (state) => {
+  return {
+    user: state.user
+  }
+}
+
 const mapDispatchToProps = (dispatch) => {
   return bindActionCreators({createUser, logInUser}, dispatch)
 }
 
-export default connect(null, mapDispatchToProps) (User)
+export default connect(mapStateToProps, mapDispatchToProps) (User)

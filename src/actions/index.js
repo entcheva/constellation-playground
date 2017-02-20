@@ -21,7 +21,9 @@ export const logInUser = (user) => {  // call on Rails API to match and decode t
   const response = axios.post('/login', user)
     .then( (userData) => {
       sessionStorage.setItem('jwt', userData.data.jwt)
-      browserHistory.push("/sky")
+      if (userData.status === 200){
+        browserHistory.push("/sky")
+      }
       return userData
     })
   return {
