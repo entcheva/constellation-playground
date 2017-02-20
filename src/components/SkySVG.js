@@ -36,7 +36,7 @@ class SkySVG extends Component {
   handleSaveClick() {
     const starsArray = this.props.constellation
     this.props.saveConstellation(starsArray)
-    this.props.addNewConstellation(starsArray)
+    // this.props.addNewConstellation(starsArray)
   }
 
   handleUndoClick() {
