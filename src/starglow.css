@@ -1,0 +1,9 @@
+g:hover {
+  stroke: white;
+  filter: url(#buttonglow);
+}
+
+g .superstar:hover {
+  stroke: white;
+  filter: url(#starglow);
+}

@@ -164,9 +164,23 @@ class SkySVG extends Component {
 
       return (
 
-          // <svg width={window.innerWidth} height={window.innerHeight} style={background}>
           <svg width={window.innerWidth} height={window.innerHeight} style={background}>
-            {this.state.littleStars.map( star => <circle key={star.key} cx={star.cx} cy={star.cy} r={star.r} fill="hsla(200, 100%, 50%, 0.8)" />)}
+
+            <filter id="buttonglow" x="-150%" y="-150%" height="500%" width="500%">
+              <feGaussianBlur stdDeviation="15" result="coloredBlur"/>
+              <feMerge>
+              <feMergeNode in="coloredBlur"/><feMergeNode in="SourceGraphic"/>
+              </feMerge>
+            </filter>
+
+            <filter id="starglow" x="-150%" y="-150%" height="500%" width="500%">
+              <feGaussianBlur stdDeviation="25" result="coloredBlur"/>
+              <feMerge>
+              <feMergeNode in="coloredBlur"/><feMergeNode in="SourceGraphic"/>
+              </feMerge>
+            </filter>
+
+            {this.state.littleStars.map( star => <circle id="glow" key={star.key} cx={star.cx} cy={star.cy} r={star.r} fill="hsla(200, 100%, 50%, 0.8)" />)}
 
             { savedLines.map((line, i) =>
               <line key={i} x1={line.star1x} y1={line.star1y} x2={line.star2x} y2={line.star2y} style={lineStyle} />
@@ -180,11 +194,15 @@ class SkySVG extends Component {
               <line key={i} x1={line.star1x} y1={line.star1y} x2={line.star2x} y2={line.star2y} style={lineStyle} />
             ) }
 
+            <g class="superstar" >
             { this.props.stars.map((star, i) =>
               <SuperStar key={i} id={star.id} x={star.x} y={star.y} z={star.z} />
             )}
+            </g>
 
+            <g>
             <text x={window.innerWidth - 110} y="20" style={textStyle} fill="white">{this.props.username}</text>
+            </g>
 
             <g onClick={this.handleSaveClick.bind(this)} style={buttonStyle}>
              <rect width="170" height="30" x='20' y={window.innerHeight - 50} rx="5" ry="5" style={rectStyle} />
