@@ -1,7 +1,7 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
 
-import './starglow.css'
+import './css/starglow.css'
 
 import './css/style.css'
 
