@@ -142,8 +142,6 @@ class SkySVG extends Component {
 
       var rectStyle = {
         fill: 'hsla(200, 100%, 50%, 0.8)',
-        strokeWidth: 1,
-        stroke: 'white',
       }
 
       var buttonStyle = {
@@ -152,7 +150,13 @@ class SkySVG extends Component {
       }
 
       var textStyle = {
-        fontFamily: "Verdana",
+        fontFamily: ['Montserrat', "Roboto", "Helvetica", "Arial", "sans-serif"],
+        fontSize: 14
+      }
+
+      var topTextStyle = {
+        fontFamily: ['Merriweather', "Roboto", "Helvetica", "Arial", "sans-serif"],
+        fontSize: 20,
       }
 
       var lineStyle = {
@@ -184,21 +188,22 @@ class SkySVG extends Component {
               <SuperStar key={i} id={star.id} x={star.x} y={star.y} z={star.z} />
             )}
 
-            <text x={window.innerWidth - 110} y="20" style={textStyle} fill="white">{this.props.username}</text>
+            <text x="20" y="30" style={topTextStyle} fill="white">✨ Constellations Playground ✨</text>
+            <text x={window.innerWidth - 110} y="30" style={topTextStyle} fill="white">{this.props.username}</text>
 
             <g onClick={this.handleSaveClick.bind(this)} style={buttonStyle}>
-             <rect width="170" height="30" x='20' y={window.innerHeight - 50} rx="5" ry="5" style={rectStyle} />
-             <text x="30" y={window.innerHeight - 30} style={textStyle} fill="white">Save Constellation</text>
+             <rect width="170" height="30" x='20' y={window.innerHeight - 50} style={rectStyle} />
+             <text x="40" y={window.innerHeight - 30} style={textStyle} fill="white">Save Constellation</text>
             </g>
 
             <g onClick={this.handleUndoClick.bind(this)} style={buttonStyle}>
-             <rect width="63" height="30" x='200' y={window.innerHeight - 50} rx="5" ry="5" style={rectStyle} />
-             <text x="210" y={window.innerHeight - 30} style={textStyle} fill="white">Undo</text>
+             <rect width="63" height="30" x='200' y={window.innerHeight - 50} style={rectStyle} />
+             <text x="213" y={window.innerHeight - 30} style={textStyle} fill="white">Undo</text>
             </g>
 
             <g onClick={this.handleLogOutClick.bind(this)} style={buttonStyle}>
-             <rect width="100" height="30" x={window.innerWidth - 120} y={window.innerHeight - 50} rx="5" ry="5" style={rectStyle} />
-             <text x={window.innerWidth - 100} y={window.innerHeight - 30} style={textStyle} fill="white">Log Out</text>
+             <rect width="100" height="30" x={window.innerWidth - 120} y={window.innerHeight - 50} style={rectStyle} />
+             <text x={window.innerWidth - 97} y={window.innerHeight - 30} style={textStyle} fill="white">Log Out</text>
             </g>
           </svg>
 
