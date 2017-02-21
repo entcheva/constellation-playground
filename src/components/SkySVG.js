@@ -86,7 +86,7 @@ class SkySVG extends Component {
     const windowWidth = window.innerWidth
     const windowHeight = window.innerHeight
     const starsArray = []
-    const stars = 200
+    const stars = 1000
     for (let i = 0; i < stars; i++) {
       let x = Math.random() * windowWidth
       let y = Math.random() * windowHeight
@@ -247,6 +247,7 @@ class SkySVG extends Component {
 
       let nameAlign = 0
       if (!!this.props.username) {
+        debugger
         const usernameLength = this.props.username.length
         nameAlign = window.innerWidth - (usernameLength * 11) - 65
       }
