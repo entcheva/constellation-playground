@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import { connect } from 'react-redux'
 import { bindActionCreators } from 'redux'
 import { logOutUser, fetchUsername, fetchStars, saveConstellation, fetchMyConstellations, addNewConstellation, undo, highlightConstellation } from '../actions'
+import Modal from 'react-modal'
 import SuperStar from './SuperStar'
 import Line from './Line'
 
@@ -15,8 +16,12 @@ class SkySVG extends Component {
       littleStars: this.createLittleStars(),
       lines: [],
       highlightedLines: [],
-      conID: 1000000
+      conID: 1000000,
+      modalOpen: false
     }
+
+    this.handleSubmit = this.handleSubmit.bind(this)
+    this.cancelModal = this.cancelModal.bind(this)
   }
 
   componentDidMount(){
@@ -37,13 +42,24 @@ class SkySVG extends Component {
   }
 
   handleSaveClick() {
-    const starsArray = this.props.constellation
-    this.props.saveConstellation(starsArray)
-    // this.props.addNewConstellation(starsArray)
-    const newConID = ++this.state.conID
+
+
+
+    // OLD MODAL
+    // var modal = document.getElementById('myModal');
+    // var span = document.getElementsByClassName("close")[0];
+    // modal.style.display = "block";
+    // span.onclick = function() {
+    //   modal.style.display = "none";
+    // }
+
     this.setState({
-      conID: newConID
+      modalOpen: true
     })
+
+
+
+    // this.props.addNewConstellation(starsArray)
   }
 
   handleUndoClick() {
@@ -106,7 +122,29 @@ class SkySVG extends Component {
     }
   }
 
+  handleSubmit(event) {
+    event.preventDefault()
+    this.setState({
+      modalOpen: false
+    })
 
+    const starsArray = this.props.constellation
+
+    this.props.saveConstellation(starsArray, this.refs.constellationName.value)
+
+    const newConID = ++this.state.conID
+    this.setState({
+      conID: newConID
+    })
+  }
+
+  cancelModal() {
+    if (this.state.modalOpen){
+      this.setState({
+        modalOpen: false
+      })
+    }
+  }
 
   render() {
 
@@ -181,11 +219,39 @@ class SkySVG extends Component {
         fontSize: 20,
       }
 
+      var modalStyle = {
+        overlay : {
+          position          : 'fixed',
+          top               : '63%',
+          left              : '10%',
+          right             : '63%',
+          bottom            : '10%',
+          backgroundColor   : 'hsla(200, 100%, 50%, 0.8)'
+        },
+        content : {
+          position                   : 'absolute',
+          top                        : '15px',
+          left                       : '15px',
+          right                      : '15px',
+          bottom                     : '15px',
+          border                     : '1px solid #fff',
+          background                 : '#000',
+          overflow                   : 'auto',
+          WebkitOverflowScrolling    : 'touch',
+          borderRadius               : '1px',
+          outline                    : 'none',
+          padding                    : '10px'
+
+        }
+      }
+
+
+
       // const littleStars = this.createLittleStars()
 
       return (
 
-          <svg width={window.innerWidth} height={window.innerHeight} style={background}>
+          <svg width={window.innerWidth} height={window.innerHeight} style={background} onClick={this.cancelModal}>
 
             <filter id="buttonglow" x="-150%" y="-150%" height="500%" width="500%">
               <feGaussianBlur stdDeviation="15" result="coloredBlur"/>
@@ -233,6 +299,24 @@ class SkySVG extends Component {
              <rect width="100" height="30" x={window.innerWidth - 120} y={window.innerHeight - 50} style={rectStyle} />
              <text x={window.innerWidth - 97} y={window.innerHeight - 30} style={textStyle} fill="white">Log Out</text>
             </g>
+
+            <Modal className="modal-content" id="myModal"
+              isOpen={this.state.modalOpen}
+              // onAfterOpen={this.afterOpenModal.bind(this)}
+              // onRequestClose={() => {
+              //   this.setState({ modalIsOpen: false });
+              // }}
+              closeTimeoutMS={5}
+              style={modalStyle}
+              contentLabel="Modal"
+              >
+              <h1 id="modal-title">Enter Constellation Name</h1>
+              <form onSubmit={this.handleSubmit}>
+                <input id="modal-input" ref="constellationName" placeholder="Constellation Name" required />
+                <br />
+                <button className="modal-button" type="submit">Save</button>
+              </form>
+            </Modal>
           </svg>
 
       )

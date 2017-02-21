@@ -81,13 +81,15 @@ export const undo = () => {
   }
 }
 
-export const saveConstellation = (array) => {
+export const saveConstellation = (array, constellationName) => {
   axios.defaults.headers.common['AUTHORIZATION'] = sessionStorage.getItem('jwt')
   const starIDArray = array.map( star => star.id )
   axios.get('/active_id')
     .then( (userData) => {
       const userID = userData.data.user_id
+      debugger
       const data = {
+        name: constellationName,
         stars_array: starIDArray,
         user_id: userID
       }
