@@ -17,7 +17,7 @@ class SuperStar extends Component {
   componentWillReceiveProps(nextProps) {
     const constellation = nextProps.constellation.map((star) => star.id)
     if (constellation.includes(this.props.id)){
-      this.setState({strokeWidth: 10})
+      this.setState({strokeWidth: 5})
     }
     else {
       this.setState({strokeWidth: 0})
@@ -52,7 +52,7 @@ class SuperStar extends Component {
 
   handleHover() {
     this.setState({
-      strokeWidth: 10
+      strokeWidth: 5
     })
 
   }

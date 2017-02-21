@@ -9,19 +9,21 @@ class Line extends Component {
     super()
 
     this.state = {
-      stroke: '#ffffff',
-      strokeWidth: 3
+      stroke: '#fff',
+      strokeWidth: 1
     }
   }
 
   componentWillReceiveProps(nextProps) {
     if (this.props.conID === nextProps.highlighted) {
       this.setState({
-        stroke: 'red'
+        stroke: 'hsla(200, 100%, 50%, 0.8)',
+        strokeWidth: 4
       })
     } else {
       this.setState({
-        stroke: 'white'
+        stroke: '#fff',
+        strokeWidth: 1
       })
     }
 

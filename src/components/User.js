@@ -39,10 +39,12 @@ class User extends Component {
 
   render() {
 
+
+
     return(
 
       <div>
-      
+
         <div id="styleOnly">
           <h1 id="title">✨ Constellation Playground ✨</h1>
 
@@ -82,6 +84,8 @@ class User extends Component {
           </div>
 
         </div>
+
+
 
       </div>
     )

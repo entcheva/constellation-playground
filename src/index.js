@@ -5,6 +5,9 @@ import './css/starglow.css'
 
 import './css/style.css'
 
+// import './css/modal.css'
+import './css/react-modal.css'
+
 
 
 import { createStore, applyMiddleware, compose } from 'redux';
