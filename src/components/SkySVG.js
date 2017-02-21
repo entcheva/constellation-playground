@@ -282,7 +282,7 @@ class SkySVG extends Component {
             )}
 
             <text x="20" y="30" style={topTextStyle} fill="white">✨ Constellation Playground ✨</text>
-            <text x={window.innerWidth - 110} y="30" style={topTextStyle} fill="white">{this.props.username}</text>
+            <text x={window.innerWidth - 160} y="30" style={topTextStyle} fill="white">✨ {this.props.username} ✨</text>
 
 
             <g onClick={this.handleSaveClick.bind(this)} style={buttonStyle}>
