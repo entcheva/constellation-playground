@@ -14,7 +14,8 @@ class SkySVG extends Component {
     this.state = {
       littleStars: this.createLittleStars(),
       lines: [],
-      highlightedLines: []
+      highlightedLines: [],
+      conID: 1000000
     }
   }
 
@@ -39,6 +40,10 @@ class SkySVG extends Component {
     const starsArray = this.props.constellation
     this.props.saveConstellation(starsArray)
     // this.props.addNewConstellation(starsArray)
+    const newConID = ++this.state.conID
+    this.setState({
+      conID: newConID
+    })
   }
 
   handleUndoClick() {
@@ -48,7 +53,7 @@ class SkySVG extends Component {
     // const star = this.props.stars.find( (star) => (star.x === lastLine.star1x && star.y === lastLine.star1y))
 
     this.setState({
-      littleStars: this.state.littleStars,
+      // littleStars: this.state.littleStars,
       lines: lines.slice(0, -1)
     })
 
@@ -81,7 +86,6 @@ class SkySVG extends Component {
   }
 
   drawLine(starsArray) {
-    debugger
     const star1x = starsArray[starsArray.length - 1].x
     const star1y = starsArray[starsArray.length - 1].y
     const star2x = starsArray[starsArray.length - 2].x
@@ -95,7 +99,8 @@ class SkySVG extends Component {
           star1x: star1x,
           star1y: star1y,
           star2x: star2x,
-          star2y: star2y
+          star2y: star2y,
+          conID: this.state.conID
         }]
       })
     }
@@ -203,7 +208,7 @@ class SkySVG extends Component {
             ) }
 
             { this.state.lines.map((line, i) =>
-              <Line key={i} x1={line.star1x} y1={line.star1y} x2={line.star2x} y2={line.star2y} />
+              <Line key={i} x1={line.star1x} y1={line.star1y} x2={line.star2x} y2={line.star2y} conID={line.conID} />
             ) }
 
             { this.props.stars.map((star, i) =>

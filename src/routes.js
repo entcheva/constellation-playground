@@ -7,7 +7,7 @@ import SkySVG from './components/SkySVG'
 
 export default (
   <Route path="/" component={App}>
-    <IndexRoute component={User} />
-    <Route path="/sky" component={SkySVG}></Route>
+    <IndexRoute component={SkySVG} />
+    <Route path="/signup" component={User}></Route>
   </Route>
 )
