@@ -131,8 +131,9 @@ export const addNewConstellation = (array) => {
     type: 'ADD_NEW_CONSTELLATION',
     payload: {
       name: 'New constellation',
-      stars_array: starsArray}
+      stars_array: starsArray
     }
+  }
 }
 
 //export const createLine  = (starsArray) => {

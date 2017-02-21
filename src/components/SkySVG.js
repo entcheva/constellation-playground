@@ -81,6 +81,7 @@ class SkySVG extends Component {
   }
 
   drawLine(starsArray) {
+    debugger
     const star1x = starsArray[starsArray.length - 1].x
     const star1y = starsArray[starsArray.length - 1].y
     const star2x = starsArray[starsArray.length - 2].x
