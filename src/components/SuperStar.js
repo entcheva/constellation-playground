@@ -14,9 +14,9 @@ class SuperStar extends Component {
     }
   }
 
-  componentDidReceiveProps() {
-    const constellation = this.props.constellation.map((star) => star.id)
-    if (constellation.includes(this.id)){
+  componentWillReceiveProps(nextProps) {
+    const constellation = nextProps.constellation.map((star) => star.id)
+    if (constellation.includes(this.props.id)){
       this.setState({strokeWidth: 10})
     }
     else {
