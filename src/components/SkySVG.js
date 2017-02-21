@@ -245,7 +245,11 @@ class SkySVG extends Component {
         }
       }
 
-
+      let nameAlign = 0
+      if (!!this.props.username) {
+        const usernameLength = this.props.username.length
+        nameAlign = window.innerWidth - (usernameLength * 11) - 65
+      }
 
       // const littleStars = this.createLittleStars()
 
@@ -282,8 +286,8 @@ class SkySVG extends Component {
             )}
 
             <text x="20" y="30" style={topTextStyle} fill="white">✨ Constellation Playground ✨</text>
-            <text x={window.innerWidth - 160} y="30" style={topTextStyle} fill="white">✨ {this.props.username} ✨</text>
 
+            <text x={nameAlign} y="30" style={topTextStyle} fill="white">✨ {this.props.username} ✨</text>
 
             <g onClick={this.handleSaveClick.bind(this)} style={buttonStyle}>
              <rect width="170" height="30" x='20' y={window.innerHeight - 50} style={rectStyle} />
@@ -312,9 +316,11 @@ class SkySVG extends Component {
               >
               <h1 id="modal-title">Enter Constellation Name</h1>
               <form onSubmit={this.handleSubmit}>
-                <input id="modal-input" ref="constellationName" placeholder="Constellation Name" required />
+                <input id="modal-input" ref="constellationName" required />
                 <br />
-                <button className="modal-button" type="submit">Save</button>
+                <g>
+                  <button className="modal-button" type="submit">Save</button>
+                </g>
               </form>
             </Modal>
           </svg>

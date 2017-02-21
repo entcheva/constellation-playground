@@ -1,22 +1,6 @@
 @import url('https://fonts.googleapis.com/css?family=Montserrat|Merriweather');
 
 /* The Modal (background) */
-.modal {
-    display: none; /* Hidden by default */
-    position: fixed; /* Stay in place */
-    z-index: 1; /* Sit on top */
-    left: 0;
-    top: 0;
-    width: 100%; /* Full width */
-    height: 100%; /* Full height */
-    overflow: auto; /* Enable scroll if needed */
-    background-color: rgb(0,0,0); /* Fallback color */
-    background-color: rgba(0,0,0,0.4); /* Black w/ opacity */
-    -webkit-animation-name: fadeIn; /* Fade in the background */
-    -webkit-animation-duration: 0.4s;
-    animation-name: fadeIn;
-    animation-duration: 0.4s
-}
 
 /* Modal Content */
 .modal-content {
@@ -43,8 +27,8 @@
 }
 
 #modal-input {
-  font-family: 'Merriweather', serif;
-  font-size: 20px;
+  font-family: 'font-family: 'Montserrat', "Roboto", Helvetica, Arial, sans-serif';
+  font-size: 1em;
   margin: auto;
 }
 

@@ -9,7 +9,7 @@ import highlightedReducer from './highlightedReducer'
 
 
 const rootReducer = combineReducers({
-  user: usersReducer,
+  2: usersReducer,
   stars: starsReducer,
   constellation: constellationReducer,
   myConstellations: myConstellationsReducer,
