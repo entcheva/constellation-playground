@@ -1,9 +1,8 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux'
 import { bindActionCreators } from 'redux'
-import { logOutUser, fetchUsername, fetchStars, saveConstellation, fetchMyConstellations, addNewConstellation, undo, highlightConstellation } from '../actions'
+import { logOutUser, fetchUsername, fetchStars, saveConstellation, fetchMyConstellations, addNewConstellation, undo } from '../actions'
 import SuperStar from './SuperStar'
-import Line from './Line'
 
 
 class SkySVG extends Component {
@@ -13,8 +12,7 @@ class SkySVG extends Component {
 
     this.state = {
       littleStars: this.createLittleStars(),
-      lines: [],
-      highlightedLines: []
+      lines: []
     }
   }
 
@@ -44,8 +42,8 @@ class SkySVG extends Component {
   handleUndoClick() {
     const lines = this.state.lines
 
-    // const lastLine = lines[lines.length - 1]
-    // const star = this.props.stars.find( (star) => (star.x === lastLine.star1x && star.y === lastLine.star1y))
+    const lastLine = lines[lines.length - 1]
+    const star = this.props.stars.find( (star) => (star.x === lastLine.star1x && star.y === lastLine.star1y))
 
     this.setState({
       littleStars: this.state.littleStars,
@@ -56,10 +54,6 @@ class SkySVG extends Component {
     // debugger
   }
 
-  handleHover(line) {
-    debugger
-    console.log(line.conID)
-  }
 
   createLittleStars(){
     const windowWidth = window.innerWidth
@@ -107,9 +101,6 @@ class SkySVG extends Component {
     ///// Start creating lines from saved constellations /////
 
     const savedLines = []
-    let conID
-    const IDs = {}
-    this.props.myConstellations.map( (constellation, i) => IDs[i] = constellation.id )
 
     if (this.props.myConstellations.length > 0) {
 
@@ -123,8 +114,8 @@ class SkySVG extends Component {
         } )
       } )
 
-      constellationsArray.forEach ( (constellation, index) => {
-        conID = IDs[index]
+      constellationsArray.forEach ( (constellation) => {
+
         constellation.map( (star, i) => {
 
           if (!!constellation[i + 1]){
@@ -138,8 +129,7 @@ class SkySVG extends Component {
               star1x: star1x,
               star1y: star1y,
               star2x: star2x,
-              star2y: star2y,
-              conID: conID
+              star2y: star2y
             }
 
             savedLines.push(line)
@@ -175,6 +165,11 @@ class SkySVG extends Component {
         fontSize: 20,
       }
 
+      var lineStyle = {
+        stroke: '#ffffff',
+        strokeWidth: 1
+      }
+
       // const littleStars = this.createLittleStars()
 
       return (
@@ -198,11 +193,15 @@ class SkySVG extends Component {
             {this.state.littleStars.map( star => <circle id="glow" key={star.key} cx={star.cx} cy={star.cy} r={star.r} fill="hsla(200, 100%, 50%, 0.8)" />)}
 
             { savedLines.map((line, i) =>
-              <Line key={i} x1={line.star1x} y1={line.star1y} x2={line.star2x} y2={line.star2y} conID={line.conID} />
+              <line key={i} x1={line.star1x} y1={line.star1y} x2={line.star2x} y2={line.star2y} style={lineStyle} />
             ) }
 
             { this.state.lines.map((line, i) =>
-              <Line key={i} x1={line.star1x} y1={line.star1y} x2={line.star2x} y2={line.star2y} />
+              <line key={i} x1={line.star1x} y1={line.star1y} x2={line.star2x} y2={line.star2y} style={lineStyle} />
+            ) }
+
+            { this.props.lines.map((line, i) =>
+              <line key={i} x1={line.star1x} y1={line.star1y} x2={line.star2x} y2={line.star2y} style={lineStyle} />
             ) }
 
             { this.props.stars.map((star, i) =>
@@ -235,17 +234,16 @@ class SkySVG extends Component {
 }
 
 const mapDispatchToProps = (dispatch) => {
-  return bindActionCreators({logOutUser, fetchUsername, fetchStars, saveConstellation, fetchMyConstellations, addNewConstellation, undo, highlightConstellation}, dispatch)
+  return bindActionCreators({logOutUser, fetchUsername, fetchStars, saveConstellation, fetchMyConstellations, addNewConstellation, undo}, dispatch)
 }
 
-const mapStateToProps = (state) => {
+function mapStateToProps (state){
   return {
     username: state.user.username,
     stars: state.stars,
     constellation: state.constellation,
     myConstellations: state.myConstellations,
-    lines: state.lines,
-    highlighted: state.highlighted
+    lines: state.lines
   }
 }
 
