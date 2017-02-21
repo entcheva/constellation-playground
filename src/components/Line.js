@@ -30,7 +30,6 @@ class Line extends Component {
   }
 
   handleLineHover() {
-    debugger
     this.props.highlightConstellation(this.props.conID)
   }
 
