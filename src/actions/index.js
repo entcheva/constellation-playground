@@ -148,3 +148,15 @@ export const addNewConstellation = (array) => {
 //  }
 
 //}
+
+export const highlightConstellation = (conID) => {
+  return {
+    type: 'HIGHLIGHT_CONSTELLATION',
+    payload: conID
+  }
+}
+export const removeHighlight = () => {
+  return {
+    type: 'REMOVE_HIGHLIGHT'
+  }
+}
