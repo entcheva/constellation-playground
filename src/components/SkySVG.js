@@ -134,13 +134,11 @@ class SkySVG extends Component {
     this.state.currentLines.forEach( (line) => {
       line.conName = this.refs.constellationName.value
     })
-
     this.setState({
-      recentLines: this.state.currentLines,
+      recentLines: [...this.state.recentLines, ...this.state.currentLines],
       currentLines: [],
       conID: newConID
     })
-    debugger
   }
 
   cancelModal() {
