@@ -6,7 +6,7 @@ axios.defaults.baseURL = "https://constellations-api.herokuapp.com/api/v1"
 axios.defaults.headers.common['AUTHORIZATION'] = sessionStorage.getItem('jwt')
 
 if (sessionStorage.length === 0) {
-  browserHistory.push("/")
+  browserHistory.push("/signup")
 }
 
 export const createUser = (user) => {  // call on Rails API to hit the Create action
