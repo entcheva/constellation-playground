@@ -1,7 +1,7 @@
 import React, { Component } from 'react'
 import { connect } from 'react-redux'
 import { bindActionCreators } from 'redux'
-import { highlightConstellation, removeHighlight } from '../actions'
+import { highlightConstellation, removeHighlight, showConstellationName, hideConstellationName, showRecentName } from '../actions'
 
 class Line extends Component {
 
@@ -29,12 +29,27 @@ class Line extends Component {
 
   }
 
-  handleLineHover() {
+  handleLineHover(e) {
     this.props.highlightConstellation(this.props.conID)
+
+    const mouseX = e.nativeEvent.offsetX
+    const mouseY = e.nativeEvent.offsetY
+    const highlightedConstellation = this.props.myConstellations.find( (constellation) => constellation.id === this.props.conID )
+
+    if (highlightedConstellation) {
+      this.props.showConstellationName(mouseX, mouseY, highlightedConstellation.name)
+    } else if (this.props.conName !== ""){
+      this.props.showRecentName(mouseX, mouseY, this.props.conName)
+    }
+
+
   }
 
   handleMouseLeave() {
     this.props.removeHighlight()
+    setTimeout( () => {
+      this.props.hideConstellationName()
+    }, 800)
   }
 
   render(){
@@ -48,12 +63,13 @@ class Line extends Component {
 }
 
 const mapDispatchToProps = (dispatch) => {
-  return bindActionCreators({highlightConstellation, removeHighlight}, dispatch)
+  return bindActionCreators({highlightConstellation, removeHighlight, showConstellationName, hideConstellationName, showRecentName}, dispatch)
 }
 
 const mapStateToProps = (state) => {
   return {
     constellation: state.constellation,
+    myConstellations: state.myConstellations,
     highlighted: state.highlighted
   }
 }

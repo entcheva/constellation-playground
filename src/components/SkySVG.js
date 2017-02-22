@@ -14,9 +14,11 @@ class SkySVG extends Component {
 
     this.state = {
       littleStars: this.createLittleStars(),
-      lines: [],
+      currentLines: [],
+      recentLines: [],
       highlightedLines: [],
       conID: 1000000,
+      conName: "",
       modalOpen: false
     }
 
@@ -43,8 +45,6 @@ class SkySVG extends Component {
 
   handleSaveClick() {
 
-
-
     // OLD MODAL
     // var modal = document.getElementById('myModal');
     // var span = document.getElementsByClassName("close")[0];
@@ -57,28 +57,24 @@ class SkySVG extends Component {
       modalOpen: true
     })
 
-
-
     // this.props.addNewConstellation(starsArray)
   }
 
   handleUndoClick() {
-    const lines = this.state.lines
+    const currentLines = this.state.currentLines
 
     // const lastLine = lines[lines.length - 1]
     // const star = this.props.stars.find( (star) => (star.x === lastLine.star1x && star.y === lastLine.star1y))
 
     this.setState({
       // littleStars: this.state.littleStars,
-      lines: lines.slice(0, -1)
+      currentLines: currentLines.slice(0, -1)
     })
 
     this.props.undo()
-    // debugger
   }
 
   handleHover(line) {
-    debugger
     console.log(line.conID)
   }
 
@@ -106,17 +102,18 @@ class SkySVG extends Component {
     const star1y = starsArray[starsArray.length - 1].y
     const star2x = starsArray[starsArray.length - 2].x
     const star2y = starsArray[starsArray.length - 2].y
-    const existingLine = this.state.lines.filter(function(line){
+    const existingLine = this.state.currentLines.filter(function(line){
       return line.star1x === star1x && line.star1y === star1y && line.star2x === star2x && line.star2y === star2y
     })
     if (existingLine.length === 0) {
       this.setState({
-        lines: [...this.state.lines, {
+        currentLines: [...this.state.currentLines, {
           star1x: star1x,
           star1y: star1y,
           star2x: star2x,
           star2y: star2y,
-          conID: this.state.conID
+          conID: this.state.conID,
+          conName: ""
         }]
       })
     }
@@ -133,9 +130,17 @@ class SkySVG extends Component {
     this.props.saveConstellation(starsArray, this.refs.constellationName.value)
 
     const newConID = ++this.state.conID
+
+    this.state.currentLines.forEach( (line) => {
+      line.conName = this.refs.constellationName.value
+    })
+
     this.setState({
+      recentLines: this.state.currentLines,
+      currentLines: [],
       conID: newConID
     })
+    debugger
   }
 
   cancelModal() {
@@ -214,6 +219,11 @@ class SkySVG extends Component {
         fontSize: 14
       }
 
+      var conTextStyle = {
+        fontFamily: ['Montserrat', "Roboto", "Helvetica", "Arial", "sans-serif"],
+        fontSize: 16
+      }
+
       var topTextStyle = {
         fontFamily: ['Merriweather', "Roboto", "Helvetica", "Arial", "sans-serif"],
         fontSize: 20,
@@ -247,12 +257,9 @@ class SkySVG extends Component {
 
       let nameAlign = 0
       if (!!this.props.username) {
-        debugger
         const usernameLength = this.props.username.length
         nameAlign = window.innerWidth - (usernameLength * 11) - 65
       }
-
-      // const littleStars = this.createLittleStars()
 
       return (
 
@@ -278,8 +285,12 @@ class SkySVG extends Component {
               <Line key={i} x1={line.star1x} y1={line.star1y} x2={line.star2x} y2={line.star2y} conID={line.conID} />
             ) }
 
-            { this.state.lines.map((line, i) =>
+            { this.state.currentLines.map((line, i) =>
               <Line key={i} x1={line.star1x} y1={line.star1y} x2={line.star2x} y2={line.star2y} conID={line.conID} />
+            ) }
+
+            { this.state.recentLines.map((line, i) =>
+              <Line key={i} x1={line.star1x} y1={line.star1y} x2={line.star2x} y2={line.star2y} conID={line.conID} conName={line.conName}  />
             ) }
 
             { this.props.stars.map((star, i) =>
@@ -289,6 +300,8 @@ class SkySVG extends Component {
             <text x="20" y="30" style={topTextStyle} fill="white">✨ Constellation Playground ✨</text>
 
             <text x={nameAlign} y="30" style={topTextStyle} fill="white">✨ {this.props.username} ✨</text>
+
+            <text x={20 + this.props.showConstellation.mouseX} y={this.props.showConstellation.mouseY} style={conTextStyle} fill="white">{this.props.showConstellation.name}</text>
 
             <g onClick={this.handleSaveClick.bind(this)} style={buttonStyle}>
              <rect width="170" height="30" x='20' y={window.innerHeight - 50} style={rectStyle} />
@@ -341,6 +354,7 @@ const mapStateToProps = (state) => {
     stars: state.stars,
     constellation: state.constellation,
     myConstellations: state.myConstellations,
+    showConstellation: state.showConstellation,
     lines: state.lines,
     highlighted: state.highlighted
   }
