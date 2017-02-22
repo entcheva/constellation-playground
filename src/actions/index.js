@@ -1,8 +1,8 @@
 import axios from 'axios'
 import { browserHistory } from 'react-router'
 
-// axios.defaults.baseURL = "http://localhost:3000/api/v1"
-axios.defaults.baseURL = "https://constellations-api.herokuapp.com/api/v1"
+axios.defaults.baseURL = "http://localhost:3000/api/v1"
+// axios.defaults.baseURL = "https://constellations-api.herokuapp.com/api/v1"
 axios.defaults.headers.common['AUTHORIZATION'] = sessionStorage.getItem('jwt')
 
 if (sessionStorage.length === 0) {
@@ -31,7 +31,6 @@ export const logInUser = (user) => {  // call on Rails API to match and decode t
       }
       return userData
     })
-    debugger
   return {
     type: 'LOG_IN',
     payload: response
@@ -89,7 +88,6 @@ export const saveConstellation = (array, constellationName) => {
   axios.get('/active_id')
     .then( (userData) => {
       const userID = userData.data.user_id
-      debugger
       const data = {
         name: constellationName,
         stars_array: starIDArray,
