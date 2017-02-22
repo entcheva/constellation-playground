@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux'
 import { bindActionCreators } from 'redux'
-import { logOutUser, fetchUsername, fetchStars, saveConstellation, fetchMyConstellations, addNewConstellation, undo, highlightConstellation } from '../actions'
+import { logOutUser, fetchUsername, fetchStars, saveConstellation, fetchMyConstellations, addNewConstellation, undo, highlightConstellation, removeHighlight } from '../actions'
 import Modal from 'react-modal'
 import SuperStar from './SuperStar'
 import Line from './Line'
@@ -126,19 +126,29 @@ class SkySVG extends Component {
     })
 
     const starsArray = this.props.constellation
-
     this.props.saveConstellation(starsArray, this.refs.constellationName.value)
 
-    const newConID = ++this.state.conID
+    this.props.highlightConstellation(this.state.conID)
+    setTimeout( () => {this.props.removeHighlight()}, 200)
+    setTimeout( () => {this.props.highlightConstellation(this.state.conID)}, 400)
+    setTimeout( () => {this.props.removeHighlight()}, 600)
+    setTimeout( () => {this.props.highlightConstellation(this.state.conID)}, 800)
+    setTimeout( () => {this.props.removeHighlight()}, 1000)
 
     this.state.currentLines.forEach( (line) => {
       line.conName = this.refs.constellationName.value
     })
-    this.setState({
-      recentLines: [...this.state.recentLines, ...this.state.currentLines],
-      currentLines: [],
-      conID: newConID
-    })
+
+    setTimeout( () => {
+
+      const newConID = ++this.state.conID
+
+      this.setState({
+        recentLines: [...this.state.recentLines, ...this.state.currentLines],
+        currentLines: [],
+        conID: newConID
+      })
+    }, 1800)
   }
 
   cancelModal() {
@@ -343,7 +353,7 @@ class SkySVG extends Component {
 }
 
 const mapDispatchToProps = (dispatch) => {
-  return bindActionCreators({logOutUser, fetchUsername, fetchStars, saveConstellation, fetchMyConstellations, addNewConstellation, undo, highlightConstellation}, dispatch)
+  return bindActionCreators({logOutUser, fetchUsername, fetchStars, saveConstellation, fetchMyConstellations, addNewConstellation, undo, highlightConstellation, removeHighlight}, dispatch)
 }
 
 const mapStateToProps = (state) => {
