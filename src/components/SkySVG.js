@@ -18,6 +18,7 @@ class SkySVG extends Component {
       recentLines: [],
       highlightedLines: [],
       conID: 1000000,
+      conName: "",
       modalOpen: false
     }
 
@@ -111,7 +112,8 @@ class SkySVG extends Component {
           star1y: star1y,
           star2x: star2x,
           star2y: star2y,
-          conID: this.state.conID
+          conID: this.state.conID,
+          conName: ""
         }]
       })
     }
@@ -128,11 +130,17 @@ class SkySVG extends Component {
     this.props.saveConstellation(starsArray, this.refs.constellationName.value)
 
     const newConID = ++this.state.conID
+
+    this.state.currentLines.forEach( (line) => {
+      line.conName = this.refs.constellationName.value
+    })
+
     this.setState({
       recentLines: this.state.currentLines,
       currentLines: [],
       conID: newConID
     })
+    debugger
   }
 
   cancelModal() {
@@ -211,6 +219,11 @@ class SkySVG extends Component {
         fontSize: 14
       }
 
+      var conTextStyle = {
+        fontFamily: ['Montserrat', "Roboto", "Helvetica", "Arial", "sans-serif"],
+        fontSize: 16
+      }
+
       var topTextStyle = {
         fontFamily: ['Merriweather', "Roboto", "Helvetica", "Arial", "sans-serif"],
         fontSize: 20,
@@ -248,8 +261,6 @@ class SkySVG extends Component {
         nameAlign = window.innerWidth - (usernameLength * 11) - 65
       }
 
-      // const littleStars = this.createLittleStars()
-
       return (
 
           <svg width={window.innerWidth} height={window.innerHeight} style={background} onClick={this.cancelModal}>
@@ -279,7 +290,7 @@ class SkySVG extends Component {
             ) }
 
             { this.state.recentLines.map((line, i) =>
-              <Line key={i} x1={line.star1x} y1={line.star1y} x2={line.star2x} y2={line.star2y} conID={line.conID} />
+              <Line key={i} x1={line.star1x} y1={line.star1y} x2={line.star2x} y2={line.star2y} conID={line.conID} conName={line.conName}  />
             ) }
 
             { this.props.stars.map((star, i) =>
@@ -289,6 +300,8 @@ class SkySVG extends Component {
             <text x="20" y="30" style={topTextStyle} fill="white">✨ Constellation Playground ✨</text>
 
             <text x={nameAlign} y="30" style={topTextStyle} fill="white">✨ {this.props.username} ✨</text>
+
+            <text x={20 + this.props.showConstellation.mouseX} y={this.props.showConstellation.mouseY} style={conTextStyle} fill="white">{this.props.showConstellation.name}</text>
 
             <g onClick={this.handleSaveClick.bind(this)} style={buttonStyle}>
              <rect width="170" height="30" x='20' y={window.innerHeight - 50} style={rectStyle} />
@@ -341,6 +354,7 @@ const mapStateToProps = (state) => {
     stars: state.stars,
     constellation: state.constellation,
     myConstellations: state.myConstellations,
+    showConstellation: state.showConstellation,
     lines: state.lines,
     highlighted: state.highlighted
   }

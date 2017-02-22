@@ -6,6 +6,7 @@ import constellationReducer from './constellationReducer'
 import myConstellationsReducer from './myConstellationsReducer'
 import linesReducer from './linesReducer'
 import highlightedReducer from './highlightedReducer'
+import showConstellationReducer from './showConstellationReducer'
 
 
 const rootReducer = combineReducers({
@@ -13,6 +14,7 @@ const rootReducer = combineReducers({
   stars: starsReducer,
   constellation: constellationReducer,
   myConstellations: myConstellationsReducer,
+  showConstellation: showConstellationReducer,
   lines: linesReducer,
   highlighted: highlightedReducer
 })

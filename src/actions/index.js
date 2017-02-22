@@ -158,8 +158,29 @@ export const highlightConstellation = (conID) => {
     payload: conID
   }
 }
+
 export const removeHighlight = () => {
   return {
     type: 'REMOVE_HIGHLIGHT'
+  }
+}
+
+export const showConstellationName = (mouseX, mouseY, name) => {
+  return {
+    type: 'SHOW_CONSTELLATION_NAME',
+    payload: {mouseX: mouseX, mouseY: mouseY, name: name}
+  }
+}
+
+export const showRecentName = (mouseX, mouseY, name) => {
+  return {
+    type: 'SHOW_CONSTELLATION_NAME',
+    payload: {mouseX: mouseX, mouseY: mouseY, name: name}
+  }
+}
+
+export const hideConstellationName = () => {
+  return {
+    type: 'HIDE_CONSTELLATION_NAME'
   }
 }
