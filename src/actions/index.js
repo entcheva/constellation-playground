@@ -7,15 +7,13 @@ axios.defaults.headers.common['AUTHORIZATION'] = sessionStorage.getItem('jwt')
 
 if (sessionStorage.length === 0) {
   browserHistory.push("/")
-} else {
-  browserHistory.push("/sky")
 }
 
 export const createUser = (user) => {  // call on Rails API to hit the Create action
   const response = axios.post('/signup', user)  // user is object with form data
     .then( (userData) => {  // userData includes jwt token and other Rails info
       sessionStorage.setItem('jwt', userData.data.jwt) // send jwt token to session storage
-      browserHistory.push("/sky") // alters the URL in browser
+      browserHistory.push("/") // alters the URL in browser
       return userData // sets the response to equal username
     })
   return {
@@ -29,7 +27,7 @@ export const logInUser = (user) => {  // call on Rails API to match and decode t
     .then( (userData) => {
       sessionStorage.setItem('jwt', userData.data.jwt)
       if (userData.status === 200){
-        browserHistory.push("/sky")
+        browserHistory.push("/")
       }
       return userData
     })
@@ -41,7 +39,7 @@ export const logInUser = (user) => {  // call on Rails API to match and decode t
 
 export const logOutUser = () => {
   sessionStorage.clear()
-  browserHistory.push("/")
+  browserHistory.push("/signup")
   return {
     type: 'LOG_OUT'
   }
