@@ -1,14 +1,14 @@
 import axios from 'axios'
 import { browserHistory } from 'react-router'
 
-// axios.defaults.baseURL = "http://localhost:3000/api/v1"
-axios.defaults.baseURL = "https://constellations-api.herokuapp.com/api/v1"
+axios.defaults.baseURL = "http://localhost:3000/api/v1"
+// axios.defaults.baseURL = "https://constellations-api.herokuapp.com/api/v1"
 axios.defaults.headers.common['AUTHORIZATION'] = sessionStorage.getItem('jwt')
 
 if (sessionStorage.length === 0) {
   browserHistory.push("/signup")
-} else {
-  browserHistory.push("/sky")
+// } else {
+//   browserHistory.push("/sky")
 }
 
 export const createUser = (user) => {  // call on Rails API to hit the Create action
@@ -184,5 +184,17 @@ export const showRecentName = (mouseX, mouseY, name) => {
 export const hideConstellationName = () => {
   return {
     type: 'HIDE_CONSTELLATION_NAME'
+  }
+}
+
+export const getUsers = () => {
+  const usernames = []
+  const response = axios.get('/users')
+    .then(usersData){
+      users.data.forEach ( (user) => usernames.push(user.username) )
+    }
+  return {
+    type: 'GET_USERS',
+    payload: response
   }
 }
