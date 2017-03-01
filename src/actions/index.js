@@ -188,11 +188,12 @@ export const hideConstellationName = () => {
 }
 
 export const getUsers = () => {
-  const usernames = []
+  const users = []
   const response = axios.get('/users')
-    .then(usersData){
-      users.data.forEach ( (user) => usernames.push(user.username) )
-    }
+    .then( (usersData) => {
+      usersData.data.forEach ( (user) => users.push(user) )
+      return users
+    })
   return {
     type: 'GET_USERS',
     payload: response
