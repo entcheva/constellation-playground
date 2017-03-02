@@ -8,6 +8,8 @@ export default (state=[], action) => {
       return state.slice(0, -1)
     case 'SAVE_CONSTELLATION':
       return []
+    case 'CLEAR_CONSTELLATION':
+      return []
     default:
       return state
   }

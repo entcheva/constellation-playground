@@ -6,6 +6,8 @@ export default (state={}, action) => {
       return {username: action.payload.data.username}
     case 'LOG_OUT':
       return {username: null}
+    case 'DISPLAY_USER':
+      return {displayUser: action.payload}
     default:
       return state
   }

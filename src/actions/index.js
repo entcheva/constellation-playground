@@ -7,8 +7,8 @@ axios.defaults.headers.common['AUTHORIZATION'] = sessionStorage.getItem('jwt')
 
 if (sessionStorage.length === 0) {
   browserHistory.push("/signup")
-// } else {
-//   browserHistory.push("/sky")
+} else {
+  browserHistory.push("/sky")
 }
 
 export const createUser = (user) => {  // call on Rails API to hit the Create action
@@ -197,5 +197,26 @@ export const getUsers = () => {
   return {
     type: 'GET_USERS',
     payload: response
+  }
+}
+
+export const showUser = (userID) => {
+  const response = axios.get(`/constellations/${userID}`)
+  return {
+    type: 'FETCH_MY_CONSTELLATIONS',
+    payload: response
+  }
+}
+
+export const displayUser = (userID) => {
+  return {
+    type: 'DISPLAY_USER',
+    payload: userID
+  }
+}
+
+export const clearConstellation = () => {
+  return {
+    type: 'CLEAR_CONSTELLATION'
   }
 }
