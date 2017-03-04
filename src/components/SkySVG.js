@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux'
 import { bindActionCreators } from 'redux'
+import { browserHistory } from 'react-router'
 import { logOutUser, fetchUsername, fetchStars, saveConstellation, fetchMyConstellations, addNewConstellation, undo, highlightConstellation, removeHighlight } from '../actions'
 import Modal from 'react-modal'
 import SuperStar from './SuperStar'
@@ -72,6 +73,10 @@ class SkySVG extends Component {
     })
 
     this.props.undo()
+  }
+
+  handleUsersClick() {
+    browserHistory.push('/users')
   }
 
   handleHover(line) {
@@ -324,6 +329,11 @@ class SkySVG extends Component {
             <g onClick={this.handleLogOutClick.bind(this)} style={buttonStyle}>
              <rect width="100" height="30" x={window.innerWidth - 120} y={window.innerHeight - 50} style={rectStyle} />
              <text x={window.innerWidth - 97} y={window.innerHeight - 30} style={textStyle} fill="white">Log Out</text>
+            </g>
+
+            <g onClick={this.handleUsersClick.bind(this)} style={buttonStyle}>
+             <rect width="209" height="30" x={window.innerWidth - 340} y={window.innerHeight - 50} style={rectStyle} />
+             <text x={window.innerWidth - 324} y={window.innerHeight - 30} style={textStyle} fill="white">Constellation Community</text>
             </g>
 
             <Modal className="modal-content" id="myModal"

@@ -186,3 +186,37 @@ export const hideConstellationName = () => {
     type: 'HIDE_CONSTELLATION_NAME'
   }
 }
+
+export const getUsers = () => {
+  const users = []
+  const response = axios.get('/users')
+    .then( (usersData) => {
+      usersData.data.forEach ( (user) => users.push(user) )
+      return users
+    })
+  return {
+    type: 'GET_USERS',
+    payload: response
+  }
+}
+
+export const showUser = (userID) => {
+  const response = axios.get(`/constellations/${userID}`)
+  return {
+    type: 'FETCH_MY_CONSTELLATIONS',
+    payload: response
+  }
+}
+
+export const displayUser = (userID) => {
+  return {
+    type: 'DISPLAY_USER',
+    payload: userID
+  }
+}
+
+export const clearConstellation = () => {
+  return {
+    type: 'CLEAR_CONSTELLATION'
+  }
+}
