@@ -18,20 +18,16 @@ class UserIndex extends Component {
 
   render() {
 
-    var style = {
-      color: 'white',
-      textAlign: 'center',
-      cursor: 'pointer'
-    }
-
     return(
-      <div className="UserView">
-        <h1 style={style}>Users</h1>
-        {this.props.listUsers.map( (user, i) =>
-          <div style={style} key={i}>
-            <a style={style} onClick={this.handleClick.bind(this, user)}>{user.username}</a>
-          </div>
-        )}
+      <div id="styleOnly">
+        <h1 id="title">Constellation Community</h1>
+        <div id="columns">
+          {this.props.listUsers.map( (user, i) =>
+            <div className="usernameDiv" key={i}>
+              <a className="username" onClick={this.handleClick.bind(this, user)}>{user.username}</a>
+            </div>
+          )}
+        </div>
       </div>
     )
   }

@@ -179,8 +179,8 @@ class UserShow extends Component {
         </g>
 
         <g onClick={this.usersClick} style={buttonStyle}>
-         <rect width="80" height="30" x={window.innerWidth - 100} y={window.innerHeight - 50} style={rectStyle} />
-         <text x={window.innerWidth - 80} y={window.innerHeight - 30} style={textStyle} fill="white">Users</text>
+         <rect width="209" height="30" x={window.innerWidth - 229} y={window.innerHeight - 50} style={rectStyle} />
+         <text x={window.innerWidth - 212} y={window.innerHeight - 30} style={textStyle} fill="white">Constellation Community</text>
         </g>
 
       </svg>

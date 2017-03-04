@@ -53,3 +53,21 @@ button {
   font-family: 'Merriweather', serif;
   margin: 10px 0 30px 0;
 }
+
+#columns {
+  column-count: 3;
+}
+
+.usernameDiv {
+  text-align: center;
+}
+
+.username {
+  color: white;
+  text-align: center;
+}
+
+.username:hover {
+  color: hsla(200, 100%, 50%, 0.8);
+  cursor: pointer;
+}
