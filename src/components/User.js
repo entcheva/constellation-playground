@@ -1,7 +1,8 @@
 import React, { Component } from 'react'
 import { bindActionCreators } from 'redux'
 import { connect } from 'react-redux'
-import { createUser, logInUser } from '../actions/index'
+import axios from 'axios'
+import { createUser, logInUser, logInAsGuest } from '../actions/index'
 
 class User extends Component {
 
@@ -29,6 +30,11 @@ class User extends Component {
     event.preventDefault()
     const user = {email: this.refs.logInEmail.value, password: this.refs.logInPassword.value}
     this.props.logInUser(user)
+  }
+
+  handleLoginAsGuest() {
+    this.props.logInAsGuest()
+    axios.get('/clear_guest')
   }
 
   invalidUser() {
@@ -81,6 +87,8 @@ class User extends Component {
               <br/><br/>
               <button type="submit">Log In</button>
             </form>
+            <br/>
+            <button onClick={this.handleLoginAsGuest.bind(this)}>Log In As Guest</button>
           </div>
 
         </div>
@@ -100,7 +108,7 @@ const mapStateToProps = (state) => {
 }
 
 const mapDispatchToProps = (dispatch) => {
-  return bindActionCreators({createUser, logInUser}, dispatch)
+  return bindActionCreators({createUser, logInUser, logInAsGuest}, dispatch)
 }
 
 export default connect(mapStateToProps, mapDispatchToProps) (User)
