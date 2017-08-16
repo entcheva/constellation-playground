@@ -87,13 +87,6 @@ export const addToConstellation = (star) => {
   }
 }
 
-// export const removeFromConstellation = (star) => {
-//   return {
-//     type: 'REMOVE_FROM_CONSTELLATION',
-//     payload: star
-//   }
-// }
-
 export const undo = () => {
   return {
     type: 'REMOVE_LAST_STAR'
@@ -120,25 +113,6 @@ export const saveConstellation = (array, constellationName) => {
 
 export const fetchMyConstellations = () => {
   const response = axios.get('/my_constellations')
-    // .then( (constellationData) => {
-    //   return axios.get('/stars')
-    //   .then ( (stars) => {
-    //
-    //     // Create lines based on existing constellations
-    //     // use the drawLines method here!
-    //
-    //     const constellations = constellationData.data
-    //     let constellationsArray = []
-    //
-    //     constellationsArray = constellations.map ( (constellation) => {
-    //       return constellation.stars_array.map( (starID) => {
-    //         return stars.data.find ( (star) => star.id == starID )
-    //       } )
-    //     } )
-    //     debugger
-    //     return constellationsArray
-    //   })
-    // })
   return {
     type: 'FETCH_MY_CONSTELLATIONS',
     payload: response
@@ -155,20 +129,6 @@ export const addNewConstellation = (array) => {
     }
   }
 }
-
-//export const createLine  = (starsArray) => {
-//  const line = {
-//    star1x: starsArray[starsArray.length - 1].x,
-//    star1y: starsArray[starsArray.length - 1].y,
-//    star2x: starsArray[starsArray.length - 2].x,
-//    star2y: starsArray[starsArray.length - 2].y
-//  }
-//  return {
-//    type: 'CREATE_LINE',
-//    payload: line
-//  }
-
-//}
 
 export const highlightConstellation = (conID) => {
   return {

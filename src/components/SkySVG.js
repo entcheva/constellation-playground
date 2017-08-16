@@ -46,29 +46,16 @@ class SkySVG extends Component {
 
   handleSaveClick() {
 
-    // OLD MODAL
-    // var modal = document.getElementById('myModal');
-    // var span = document.getElementsByClassName("close")[0];
-    // modal.style.display = "block";
-    // span.onclick = function() {
-    //   modal.style.display = "none";
-    // }
-
     this.setState({
       modalOpen: true
     })
 
-    // this.props.addNewConstellation(starsArray)
   }
 
   handleUndoClick() {
     const currentLines = this.state.currentLines
 
-    // const lastLine = lines[lines.length - 1]
-    // const star = this.props.stars.find( (star) => (star.x === lastLine.star1x && star.y === lastLine.star1y))
-
     this.setState({
-      // littleStars: this.state.littleStars,
       currentLines: currentLines.slice(0, -1)
     })
 
@@ -77,10 +64,6 @@ class SkySVG extends Component {
 
   handleUsersClick() {
     browserHistory.push('/users')
-  }
-
-  handleHover(line) {
-    console.log(line.conID)
   }
 
   createLittleStars(){
@@ -338,10 +321,6 @@ class SkySVG extends Component {
 
             <Modal className="modal-content" id="myModal"
               isOpen={this.state.modalOpen}
-              // onAfterOpen={this.afterOpenModal.bind(this)}
-              // onRequestClose={() => {
-              //   this.setState({ modalIsOpen: false });
-              // }}
               closeTimeoutMS={5}
               style={modalStyle}
               contentLabel="Modal"
